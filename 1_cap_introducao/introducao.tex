@@ -1,0 +1,48 @@
+\chapter[Introdução]{Introdução}
+
+A histologia é a área da biologia que estuda tecidos e composição de órgãos. Ela possui grande relevância na área acadêmica pois tem como proposta estudar a estrutura e a função dos tecidos, realizar análises quantitativas, avaliar respostas a tratamentos e investigar aspectos do desenvolvimento embrionário e da fisiologia. Outras aplicações importantes da histologia são encontradas na medicina, em que é empregada em diagnósticos médicos, auxiliando patologistas a identificar e caracterizar doenças, tumores, infecções e outras alterações nos tecidos~\cite{junqueira1985histologia}. 
+
+As análises histológicas são comumente feitas a partir de imagens denominadas cortes histológicos, que podem ser obtidas em laboratório por meio de um longo processo de preparo. A análise desses imagens de lâmina inteira muitas vezes são demoradas e demandam grande esforço de um especialista ~\cite{linhares2022automated}. Dada a importância da análise histológica, é interessante desenvolver métodos que possam facilitá-la, tornando-a mais rápida e acessível para os pesquisadores e profissionais da saúde.
+
+ O tecido ósseo é um tecido conjuntivo que tem grande relevância em pesquisas da área da histologia devido à sua estrutura, composição e propriedades regenerativas. Desenvolver formas de automatizar a análise de imagens histológicas de tecido ósseo pode auxiliar estudos relacionados à estrutura do tecido, sua regeneração e efeitos de tratamentos de doenças ~\cite{linhares2019melhoria}. Porém é um desafio automatizar tais análises devido a vários fatores como o tamanho das imagens, complexidade e quantidade de estruturas, irregularidades e rasgos no tecido decorrentes do processo de preparo do corte histológico \cite{gondim2021automatic}.
+
+
+Nos últimos anos o aprendizado de máquina tem ganhado destaque tanto no meio acadêmico como no corporativo por apresentar resultados satisfatórios na execução de tarefas complexas, inclusive em relação ao processamento de imagens~\cite{miklosik2020impact}. Uma das abordagens do aprendizado de máquina é o aprendizado supervisionado, cujo princípio é o uso de uma base de dados para treinar um modelo de forma que o mesmo aprenda a realizar uma determinada tarefa. Esse conjunto de dados deve estar organizado de forma a conter exemplos diversos de entradas de dados e suas respectivas saídas esperadas~\cite{monard2003conceitos}. 
+    
+    Entretanto, ao se trabalhar com modelos de aprendizado de máquina, o conjunto de dados a ser utilizado pode ser um fator limitante, pois é preciso um conjunto de dados bem estruturado para se realizar a tarefa desejada a fim de se realizar um treinamento que não seja enviesado e que apresente bons resultados~\cite{paullada2021data}. Dessa forma, para se criar e treinar um modelo de aprendizado de máquina para a execução de uma tarefa, muitas vezes é necessário um árduo trabalho prévio de elaboração de um conjunto de dados que viabilize o treinamento.
+    
+    Conjuntos de imagens são amplamente utilizados em técnicas de aprendizado profundo (do inglês \textit{deep learning}), uma subárea do aprendizado de máquina. O uso de redes neurais, modelos de aprendizado de máquina que tentam simular estruturas do cérebro humano, tem apresentado resultados interessantes no campo da visão computacional, especialmente as \acf{RNC}. Tais redes se baseiam na forma como os seres humanos percebem e aprendem características chave das imagens~\cite{rawat2017deep}.
+    
+    O uso do aprendizado profundo na área médica vêm ganhando força e importância especialmente desde o surgimento das redes do tipo U-Net, arquitetura proposta em 2015 por \cite{ronneberger2015u} que vem sido amplamente utilizada para segmentação de imagens biomédicas graças à sua capacidade de realizar classificação a nível de pixel. A utilização de tais técnicas pode ser de grande ajuda para especialistas em análises clínicas, diagnósticos e pesquisas, tornando o processo mais acessível e ágil~\cite{esteva2021deep}.
+
+\section{Motivação}
+
+Sabendo da importância da visão computacional nas ciências biomédicas, e do importante papel que o aprendizado profundo vem desempenhando na área de visão computacional, é interessante oferecer ferramentas que façam algum tipo de processamento automático em imagens histológicas, tais como classificação de imagens ou segmentação semântica. 
+    
+    Existem alguns métodos que visam resolver problemas específicos no processamento automático de imagens, como segmentação de alguma estrutura específica a partir da aplicação de determinados procedimentos nas imagens, como o proposto em~\cite{gondim2021automatic}. Porém tais métodos muitas vezes não apresentam invariância, ou seja, não costumam reagir bem a variações nas entradas, como tamanho das imagens, ruídos, variações de cor e posicionamento. Isso dificulta a utilização dessas ferramentas, visto que a parametrização ideal pode ser diferente para cada entrada~\cite{linhares2022automated}, o que levou ao questionamento sobre a possibilidade de se criar uma ferramenta de processamento de imagens que possa se ajustar automaticamente para a realização de uma determinada tarefa independentemente das características específicas de cada imagem a ser analisada.
+    
+    Para a realização desse tipo de trabalho, as \acs{RCN}s têm apresentado ótimos resultados, pois por meio da convolução aprendem padrões de imagens em um nível local e os identificam na imagem independente de posição, tamanho ou rotação~\cite{mueller2019deep}. Portanto deve ser possível utilizar uma \acs{RCN} que realize segmentação de estruturas de interesse em imagens histológicas de tecido ósseo com desempenho e precisão satisfatórias.
+    
+    Entretanto, como já mencionado, utilizar uma rede neural para este tipo de tarefa requer um conjunto de dados estruturado de forma adequada.
+    Existem vários conjuntos de dados de imagens médicas disponíveis para uso, por exemplo o ALL-IDB \cite{Labati2011} e ErythrocytesIDB \cite{Gonzalez-Hidalgo2015}, que são conjuntos de amostras de sangue; e o COVID-19 Radiography Database \cite{Chowdhury2020}, conjunto de imagens de raio-x de pulmões de pacientes com COVID-19. Porém observou-se uma escassez de dados destinado especificamente à segmentação de imagens histológicas de tecido ósseo.
+    
+\section{Objetivo}
+
+    Partindo da ideia apresentada, o objetivo deste trabalho é validar o uso de uma \ac{RNC} como método de segmentação de canais vasculares em imagens histológicas de tecido ósseo. O método testado deve alcançar resultados aceitáveis e comparáveis com métodos já existentes.
+    
+    Um desafio deste trabalho é a preparação do \textit{dataset}, que será feito por meio da marcação da região de interesse em várias imagens de lâmina inteira. Tais marcações serão realizadas com a ajuda de um especialista em histologia.
+
+\section{Hipótese}
+Este trabalho busca validar a seguinte hipótese: \bigskip
+
+\setlength{\fboxsep}{12pt}
+\shadowbox{\parbox{0.89\textwidth}{
+\textit{É possível utilizar Redes Neurais Convolucionais para realizar a segmentação de canais ósseos em imagens histológicas com precisão aceitável em relação à posição e à forma das estruturas em questão.}
+}}
+\bigskip
+
+\section{Contribuições}
+
+    A principal contribuição esperada deste trabalho é demonstrar a viabilidade do uso de Redes Neurais Convolucionais para a tarefa de segmentação de canais ósseos em imagens histológicas, abrindo assim portas para o uso de \ac{RNC}s em outras tarefas da histologia relacionadas a imagens de tecido ósseo e para o desenvolvimento de novas tecnologias que possam contribuir para pesquisas dessa área.
+    
+Outra contribuição é a disponibilização pública de um conjunto de imagens histológicas de tecido ósseo, que pode vir a ser útil para outros pesquisadores na elaboração e desenvolvimento de suas pesquisas. Tal conjunto pode ser evoluído em trabalhos posteriores para que seja possível realizar outras tarefas de visão computacional em imagens de tecido ósseo, como classificação ou segmentação de outras estruturas presentes nesse tipo de tecido.  

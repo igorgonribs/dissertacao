@@ -1,0 +1,16 @@
+\chapter[Conclusão]{Conclusão}
+
+Neste trabalho foi explorado um novo método de segmentação de canais vasculares em imagens histológicas de tecido ósseo utilizando uma rede neural completamente convolucional. A rede foi treinada com um conjunto de imagens próprio criado a partir de imagens marcadas manualmente com a ajuda de um especialista em histologia. Além disso, o conjunto de imagens utilizado foi disponibilizado publicamente. 
+
+O método testado mostrou-se capaz de executar a tarefa de segmentação de canais vasculares em imagens histológicas WSI de tecido ósseo. Apresentou bons valores de acurácia e especificidade e valores superiores de precisão, sensibilidade e \textit{f1-score} e mostrou-se mais robusto e preciso em comparação com outros trabalhos encontrados na literatura. 
+
+Entretanto o trabalho apresenta algumas limitações. Não foram testados outros tamanhos para a quebra da imagem WSI em imagens menores. Uma quebra em tamanhos menores possivelmente melhoraria os resultados visto que  poderiam haver mais sub-imagens que não apresentam canais. Dessa forma poderíamos descartá-las e treinar a rede com um conjunto de dados mais equilibrado entre \textit{pixels} que são canais e \textit{pixels} que não são canais.
+
+Outra limitação do conjunto de dados foi o fato de não ter sido feita uma análise de concordância sobre as marcações realizadas pelo especialista. Uma análise de concordância com o apoio de um segundo especialista na área seria interessante pois, ao realizar as marcações, o especialista traz consigo um viés de subjetividade. Com a análise de concordância poderíamos ter um conjunto de dados com marcações mais confiáveis, o que traria um resultado mais próximo da realidade.
+
+Conclui-se portanto que a segmentação de canais vasculares em imagens histológicas de tecido ósseo em imagens de lâmina inteira pode ser realizada utilizando redes neurais completamente convolucionais desde que haja um conjunto de imagens apropriado para o treinamento. Para trabalhos futuros almeja-se aprimorar o método focando nas limitações apresentadas acima. Além disso, pretende-se utilizar o método para segmentar canais vasculares em imagens sequenciais de tecido ósseo, permitindo reconstruir em 3D toda a rede de canais ósseos, tornando viável a realização de análises mais profundas sobre a rede vascular óssea para pesquisadores da área da histologia.
+
+\section{Contribuições em Produções Bibliográficas}
+
+O artigo \textit{Automatic Segmentation of Bone Canals on Histological Images Using Fully Convolutional Neural Networks}
+foi submetido para a revista Social \textit{Biomedical Signal Processing and Control}. Nesse artigo foram reunidas as principais propostas e resultados descritos nesta dissertação.
