@@ -3,9 +3,9 @@
 Neste capítulo são abordados os conceitos fundamentais que embasam o desenvolvimento desta pesquisa e os principais trabalhos correlatos.
 
 \section{O tecido ósseo e a rede vascular}
-O tecido ósseo é um dos objetos de estudo da histologia e chama a atenção de pesquisadores e profissionais da área médica especialmente devido às suas propriedades regenerativas. Macroscopicamente os ossos longos podem ser divididos em duas regiões: diáfise e epífise. As epífises são as extremidades do osso e são compostas por osso esponjoso, ou seja, com muitas cavidades intercomunicantes \cite{junqueira1985histologia}. Já a diáfise é a região intermediária do osso, sendo mais fina e apresentando osso compacto -- sem cavidades -- em sua maior parte \cite{junqueira1985histologia}. A Figura \ref{fig:estrutura-ossos-longos}(a) mostra tais regiões e suas respectivas composições.
+O tecido ósseo é um dos objetos de estudo da histologia e chama a atenção de pesquisadores e profissionais da área médica especialmente devido às suas propriedades regenerativas. Macroscopicamente os ossos longos podem ser divididos em duas regiões: diáfise e epífise. As epífises são as extremidades do osso e são compostas por osso esponjoso, ou seja, com muitas cavidades intercomunicantes \cite{junqueira1985histologia}. Já a diáfise é a região intermediária do osso, sendo mais fina e apresentando osso compacto -- sem cavidades -- em sua maior parte~\cite{junqueira1985histologia}. A Figura~\ref{fig:estrutura-ossos-longos}(a) mostra tais regiões e suas respectivas composições.
 
-A maior parte da diáfise é composta túneis longitudinais formados por lamelas concêntricas, tais túneis são conhecidos como sistema de Havers e formam em seus centros canais que são percorridos por vasos sanguíneos, linfáticos e nervos. Também existem canais transversais que conectam canais de Havers adjacentes chamados canais de Volkmann, formando assim a rede de canais ósseos \cite{junqueira1985histologia}. A Figura \ref{fig:estrutura-ossos-longos}(b) ilustra as estruturas mencionadas destacando os canais de Havers e de Volkmann.
+A maior parte da diáfise é composta túneis longitudinais formados por lamelas concêntricas, tais túneis são conhecidos como sistema de Havers e formam em seus centros canais que são percorridos por vasos sanguíneos, linfáticos e nervos. Também existem canais transversais que conectam canais de Havers adjacentes chamados canais de Volkmann, formando assim a rede de canais ósseos~\cite{junqueira1985histologia}. A Figura~\ref{fig:estrutura-ossos-longos}(b) ilustra as estruturas mencionadas destacando os canais de Havers e de Volkmann.
 
 \begin{figure}[H]
     \centering
@@ -27,8 +27,21 @@ A maior parte da diáfise é composta túneis longitudinais formados por lamelas
 
 Os vasos sanguíneos e linfáticos que percorrem os canais nutrem os osteócitos, que são estruturas que cumprem um importante papel na manutenção e integridade da matriz óssea. Dessa forma a rede de canais ósseos cumpre um importante papel de nutrição do tecido contribuindo para seu desenvolvimento e no processo de reparo ósseo \cite{junqueira1985histologia}.
 
+A Figura~\ref{fig:corte-canais-osteocitos} ilustra um corte transversal na diáfise de um osso longo e um exemplo de imagem histológica dessa região, destacando os canais ósseos e os osteócitos.
+\begin{figure}[H]
+    \centering
+    \center
+    \begin{tabular}{@{}c@{}}
+        \includegraphics[width=.8\linewidth]{figures/2_theoric_foundamentations/Corte-canais-osteocitos.png}
+        \\[\abovecaptionskip]
+    \end{tabular}
+  
+    \caption[Corte transversal da diáfise de um osso longo]{Corte transversal da diáfise de um osso longo com uma região ampliada destacando alguns canais ósseos e osteócitos.}
+    \label{fig:corte-canais-osteocitos}
+\end{figure}
+
 \section{Aprendizado de máquina} \label{subsec:AutoML}
-Ainda em 1959 Arthur Lee Samuel definiu o aprendizado de máquina como ``o campo de estudo que dá aos computadores a habilidade de aprender sem serem explicitamente programados''~\cite{simon2013too}. De fato o aprendizado de máquinas automatizado permite que computadores aprendam a realizar tarefas analisando uma base de dados previamente rotulada, além de aprimorar seu aprendizado à medida que novos dados lhe são apresentados \cite{monard2003conceitos}.
+Ainda em 1959 Arthur Lee Samuel definiu o aprendizado de máquina como ``o campo de estudo que dá aos computadores a habilidade de aprender sem serem explicitamente programados''~\cite{simon2013too}. De fato o aprendizado de máquinas automatizado permite, por exemplo, que computadores aprendam a realizar tarefas analisando uma base de dados previamente rotulada, além de aprimorar seu aprendizado à medida que novos dados lhe são apresentados \cite{monard2003conceitos}.
 
 O aprendizado de máquina é um área da inteligência artificial que se apoia em técnicas e conceitos da matemática e estatística. Esse aprendizado é dividido em quatro tipos: aprendizado supervisionado, não supervisionado, auto supervisionado e por reforço. Todos possuem uma variedades de algoritmos, sendo que, para cada problema a ser resolvido, um determinado algoritmo pode ser mais adequado que os demais \cite{mueller2019deep}.
 
@@ -41,39 +54,9 @@ Uma subárea do aprendizado de máquina é o aprendizado profundo, que também t
 Redes neurais podem possuir diversas camadas e arquiteturas, sendo que cada uma pode ser mais ou menos indicada para cada tipo de problema a ser tratado.
 Tais redes são compostas por estruturas chamadas neurônios, que simulam os neurônios biológicos e se ligam uns aos outros por meio de ligações com diferentes pesos que simulam as sinapses cerebrais \cite{mueller2019deep}.
 
-A rede neural mais simples possível é o \textit{perceptron}, que pode ser utilizada para tarefas de classificação binária ou regressão linear. O \textit{perceptron} é composto por apenas uma camada de um único neurônio. Ele recebe uma entrada \textit{X} de tamanho \textit{m} que é multiplicada por um vetor de pesos \textit{W} também de tamanho \textit{m}. Em seguida é aplicada sobre o produto escalar \textit{X.W} uma função de ativação a fim de produzir um único resultado de saída \cite{block1962perceptron}. O processo de treinamento de uma rede neural consiste justamente em realizar, com base no conjunto de dados de entrada, a parametrização do vetor de pesos \textit{W} das ligações entre os componentes da entrada \textit{X} e o neurônio \cite{mueller2019deep}.
+A rede neural mais simples possível é o \textit{perceptron}, que pode ser utilizada para tarefas de classificação binária ou regressão linear. O \textit{perceptron} é composto por apenas uma camada de um único neurônio. Ele recebe uma entrada $X$ de tamanho $m$ que é multiplicada por um vetor de pesos $W$ também de tamanho $m$. Em seguida é aplicada sobre o produto escalar $X \cdot W$ uma função de ativação a fim de produzir um único resultado de saída \cite{block1962perceptron}. O processo de treinamento de uma rede neural consiste justamente em realizar, com base no conjunto de dados de entrada, a parametrização do vetor de pesos $W$ das ligações entre os componentes da entrada $X$ e o neurônio \cite{mueller2019deep}.
 
-%\begin{figure}[H]
-%  \centering
-%  \includegraphics[width=.75\linewidth]{figures/2_theoric_foundamentations/perceptron.png}
-%  \caption{Exemplo da estrutura básica de um \textit{perceptron}. Fonte: \cite{operceptronmedium}}
-%  \label{fig:perceptron}
-%\end{figure}
-
-A partir do \textit{perceptron}, novas arquiteturas de redes neurais podem ser formuladas adicionando mais camadas, mais neurônios, funções de retro-propagação de erro dentre outras estratégias que permitem que as redes neurais resolvam problemas mais complexos. A Figura \ref{fig:perceptron}(b) mostra um exemplo de rede multi-camadas, contendo uma camada de entrada, uma camadas escondida e uma camada de saída composta por 4 neurônios. Dessa forma, uma rede como essa seria capaz de realizar tarefas de classificação com 4 classes.
-
-%\begin{figure}[H]
-%  \centering
-
-%\center
-%    \begin{tabular}{@{}c@{}}
-%        \\ 
-%        \\ 
-%        \includegraphics[width=.6\linewidth]{figures/2_theoric_foundamentations/perceptron.png}
-%        \\ 
-%        \\ 
-%        [\abovecaptionskip]
-%    \small (a)
-%    \end{tabular}
-%    \begin{tabular}{@{}c@{}}
-%        \includegraphics[width=.35\linewidth]{figures/2_theoric_foundamentations/multilayer-perceptron.png}
-%        \\[\abovecaptionskip]
-%    \small (b)
-%    \end{tabular}
-  
-%  \caption[Estrutura básica de um \textit{perceptron}]{Em (a) um Exemplo da estrutura básica de um \textit{perceptron}. Fonte: \cite{operceptronmedium}. Em (b) exemplo de uma rede de perceptrons multicamada. Fonte: \cite{multilayer}}
-%  \label{fig:perceptron}
-%\end{figure}
+A partir do \textit{perceptron}, novas arquiteturas de redes neurais podem ser formuladas adicionando mais camadas, mais neurônios, funções de retro-propagação de erro dentre outras estratégias que permitem que as redes neurais resolvam problemas mais complexos.
 
 \section{Redes Neurais Convolucionais}
 
@@ -82,7 +65,7 @@ Esse tipo de rede neural é uma variação das redes de \textit{perceptron} mult
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=.45\linewidth]{figures/2_theoric_foundamentations/cnn.png}
+  \includegraphics[width=.8\linewidth]{figures/2_theoric_foundamentations/cnn.png}
   \caption[Estrutura básica de uma rede neural convolucional.]{Exemplo de estrutura básica de uma rede neural convolucional. Fonte: \cite{srinivasan2021durld}}
   \label{fig:cnn}
 \end{figure}
@@ -97,7 +80,7 @@ A aplicação desses filtros se dá por um algoritmo de janela deslizante, que p
 \begin{figure}[H]
   \centering
   \includegraphics[width=.5\linewidth]{figures/2_theoric_foundamentations/conv2d.png}
-  \caption[Exemplo de convolução entre duas matrizes bidimensionais.]{Exemplo de convolução entre duas matrizes bidimensionais. O filtro K percorre a matriz I com um passo de uma unidade calculando os produtos escalares entre a respectiva região da matriz I e o filtro K, gerando assim uma nova matriz I*K que é o mapa de características, resultado da convolução entre I e K. Fonte: \cite{fig-conv2d}}
+  \caption[Exemplo de convolução entre duas matrizes bidimensionais.]{Exemplo de convolução entre duas matrizes bidimensionais. O filtro K percorre a matriz I com um passo de uma unidade calculando os produtos escalares entre a respectiva região da matriz I e o filtro K, gerando assim uma nova matriz I*K que é o mapa de características, resultado da convolução entre I e K.}
   \label{fig:conv2d}
 \end{figure}
 
@@ -152,7 +135,7 @@ Para isso, consideremos a seguinte nomenclatura:
  \end{itemize}
    
 \subsection{Acurácia}
-A acurácia é a relação entre a quantidade de elementos classificados corretamente e a quantidade total de elementos analisados. Muitas vezes a acurácia não é a medida mais confiável para se avaliar modelos de aprendizado de máquina, pois é um desafio encontrar (e até mesmo construir) conjuntos de dados balanceados, ou seja, com aproximadamente a mesma quantidade de elementos de cada classe \cite{9075071}. Dessa forma, se um conjunto de dados para classificação binária possui um número muito mais elevado de elementos que não pertencem a uma classe C1 do que elementos que pertencem a C1, o modelo pode classificar corretamente os elementos que não pertencem a C1 e incorretamente uma boa parte dos elementos de C,1 e ainda assim apresentar uma boa acurácia, visto que os elementos que não pertencem a C1 compõem a maior parte do conjunto de dados. 
+A acurácia é a relação entre a quantidade de elementos classificados corretamente e a quantidade total de elementos analisados. Muitas vezes a acurácia não é a medida mais confiável para se avaliar modelos de aprendizado de máquina, pois é um desafio encontrar (e até mesmo construir) conjuntos de dados balanceados, ou seja, com aproximadamente a mesma quantidade de elementos de cada classe \cite{9075071}. Dessa forma, se um conjunto de dados para classificação binária possui um número muito mais elevado de elementos que não pertencem a uma classe C1 do que elementos que pertencem a C1, o modelo pode classificar corretamente os elementos que não pertencem a C1 e incorretamente uma boa parte dos elementos de C1 e ainda assim apresentar uma boa acurácia, visto que os elementos que não pertencem a C1 compõem a maior parte do conjunto de dados. 
 A acurácia é calculada segundo a Equação \ref{eq-accuracy}.
 
 \begin{equation}
@@ -190,7 +173,7 @@ sensibilidade = \frac{VP}{VP + FN}
 O \textit{f1-score} (também conhecida como \textit{Dice Coefficient}) é a média harmônica entre precisão e a sensibilidade. Calculada conforme a Equação \ref{eq-dice}, busca representar a qualidade geral do modelo e é a métrica mais confiável quando se busca obter um modelo que minimize tanto os falsos positivos como os falsos negativos.
 
 \begin{equation}
-\mbox{\textit{f1-score}} = \frac{2 * precision * sensibility}{precision + sensibility}
+\mbox{\textit{f1-score}} = \frac{2 * precisao * sensibilidade}{precisao + sensibilidade}
 \label{eq-dice}
 \end{equation}
 
@@ -210,7 +193,7 @@ A literatura apresenta poucos trabalhos focados em segmentação de canais ósse
 
 %% Pedro
 Um método para segmentação automática de canais ósseos em imagens histológicas de tecido ósseo foi proposto por \cite{gondim2021automatic}. 
-Tal método processa as imagens de entrada, resumidamente, em quatro etapas: remoção de artefatos externos à matriz óssea, remoção de artefatos internos à matriz óssea, segmentação da rede vascular e remoção de falsos positivos. A cada etapa são utilizadas diversas técnicas de processamento de imagens (tais como abertura e fechamento morfológico, binarização, deconvolução de cor, etc.) em sequência e até mesmo um algoritmo de aprendizado de máquina não supervisionado denominado \textit{K-means}. Isso torna o método bastante complexo e implica em uma grande quantidade de parâmetros cujos valores devem ser fixos e obtidos empiricamente, o que leva a questionar sobre sua sensibilidade a variações na imagem. A Figura \ref{fig:gondim-input-output} mostra um exemplo de entrada e saída do método proposto por \cite{gondim2021automatic}.
+Tal método processa as imagens de entrada, resumidamente, em quatro etapas: remoção de artefatos externos à matriz óssea, remoção de artefatos internos à matriz óssea, segmentação da rede vascular e remoção de falsos positivos. A cada etapa são utilizadas diversas técnicas de processamento de imagens (tais como abertura e fechamento morfológico, binarização, deconvolução de cor, etc.) em sequência e até mesmo um algoritmo de aprendizado de máquina não supervisionado denominado \textit{K-means}. Isso torna o método bastante complexo e implica em uma grande quantidade de parâmetros cujos valores devem ser fixos e obtidos empiricamente, o que leva a questionar sobre sua rebustez em relação a variações na imagem. A Figura \ref{fig:gondim-input-output} mostra um exemplo de entrada e saída do método proposto por \cite{gondim2021automatic}.
 
 \begin{figure}[h]
     \center
@@ -268,9 +251,9 @@ Em ambos os trabalhos observa-se que a qualidade do conjunto de imagens teve imp
 %% DALI
 Pensando nos bons resultados que as redes neurais convolucionais têm apresentado no processamento de imagens nos últimos anos, \cite{Santos2021} utiliza redes neurais convolucionais para segmentar regiões tumorais em imagens de lâmina inteira de tecido oral, obtendo bons resultados, como cerca de 97.6\% de acurácia, 98.4\% de especificidade e 92.9\% de sensibilidade. Foi utilizada uma \ac{RNCC} baseada no modelo \textit{U-Net} treinada com uma base de imagens, desenvolvida pelos autores, que continha imagens histológicas de tecidos da cavidade oral corados com \ac{HE}.
 
-Antes do treinamento foi feita uma etapa de pre-processamento para identificar as regiões de tecido, descartando áreas desinteressantes para o trabalho.
+Antes do treinamento foi feita uma etapa de pré-processamento para identificar as regiões de tecido, descartando áreas desinteressantes para o trabalho.
 As imagens eram então divididas em sub-imagens e apresentadas à rede para o treinamento, que também contava com uma estratégia de aumento de dados. 
-O resultado da rede era uma imagem em escala de cinza onde era calculada para cada pixel da imagem a probabilidade \textit{p} de tal pixel pertencer ou não à região de interesse. Por fim eram marcados como positivos os pixels que apresentassem \textit{p} acima de um \textit{threshold} de 50\%, valor este que foi escolhido empiricamente. A Figura \ref{fig:dali-results} apresenta exemplos dos principais elementos gráficos presentes no método proposto por \cite{santos2022automated}.
+O resultado da rede era uma imagem em escala de cinza em que era calculada para cada pixel da imagem a probabilidade $p$ de tal pixel pertencer ou não à região de interesse. Por fim eram marcados como positivos os pixels que apresentassem $p$ acima de um \textit{threshold} de 50\%, valor este que foi escolhido empiricamente. A Figura \ref{fig:dali-results} apresenta exemplos dos principais elementos gráficos presentes no método proposto por \cite{santos2022automated}.
 
 \begin{figure}[h]
     \center
@@ -302,7 +285,7 @@ O resultado da rede era uma imagem em escala de cinza onde era calculada para ca
     \end{tabular}
 
     
-    \caption[Principais elementos gráficos presentes no método proposto por \cite{santos2022automated}.]{Exemplos dos principais elementos gráficos presentes no método proposto por \cite{santos2022automated}. Em (a) uma imagem de entrada. Em (b) um exemplo de marcação padrão ouro. Em (c) um exemplo da saída da rede, em que cada pixel é preenchido de acordo com a probabilidade de pertencer à região de interesse. Em (d) a marcação final do método, com \textit{threshold} de 50\%. Em (e) a região com tumor representada em vermelho na imagem original. Imagem adaptada de \cite{santos2022automated}.}
+    \caption[Principais elementos gráficos presentes no método proposto por \cite{santos2022automated}.]{Exemplos dos principais elementos gráficos presentes no método proposto por \cite{santos2022automated}. Em (a) uma imagem de entrada. Em (b) um exemplo de marcação padrão ouro. Em (c) um exemplo da saída da rede, em que cada pixel é preenchido de acordo com a probabilidade de pertencer à região de interesse (quanto mais próximo da cor branca, maior a probabilidade). Em (d) a marcação final do método, com \textit{threshold} de 50\%. Em (e) a região com tumor representada em vermelho na imagem original. Imagem adaptada de \cite{santos2022automated}.}
     \label{fig:dali-results}
 \end{figure}
 

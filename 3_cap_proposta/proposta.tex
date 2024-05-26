@@ -5,7 +5,7 @@ Este capítulo descreve o conjunto de dados elaborado, a arquitetura da rede neu
 
 \section{Conjunto de dados}
 
-As imagens utilizadas foram obtidas a partir do fêmur esquerdo de um rato \textit{Rattus norvegicus} da linhagem \textit{Wistar} saudável com 200 - 250g. O animal foi sacrificado e os fêmures foram removidos e fixados em formaldeído 10\%, tamponado e desmineralizado em EDTA 4,13\%. A diáfise, região intermediária do fêmur, foi incluída em parafina e obteve-se cortes histológicos seriados de cerca de 5 micrômetros de espessura corados em \ac{HE}, que é o tipo de coragem mais amplamente utilizado na histologia devido a sua simplicidade e ao grande número de estruturas do tecido que permite visualizar \cite{feldman2014tissue}. 
+As imagens utilizadas foram obtidas a partir do fêmur esquerdo de um rato \textit{Rattus norvegicus} da linhagem \textit{Wistar} saudável com 200 - 250g. O animal foi sacrificado e os fêmures foram removidos e fixados em formaldeído 10\%, tamponado e desmineralizado em EDTA 4,13\%. A diáfise (Figura~\ref{fig:estrutura-ossos-longos}), região intermediária do fêmur, foi incluída em parafina e obteve-se cortes histológicos seriados de cerca de 5 micrômetros de espessura corados em \ac{HE}, que é o tipo de coragem mais amplamente utilizado na histologia devido à sua simplicidade e ao grande número de estruturas do tecido que permite visualizar \cite{feldman2014tissue}. 
 
 Todos os procedimentos para se obter este material foram executados de acordo com as normas do Colégio Brasileiro de Experimentação Animal (COBEA), com aprovação do Comitê de Ética no Uso de Animais da Universidade Federal de Uberlândia (CEUA-UFU) -- Protocolo 060/09.
 
@@ -36,13 +36,13 @@ As imagens de lâmina inteira bem como as sub-imagens utilizadas neste trabalho 
 \begin{figure}[h]
     \center
     \begin{tabular}{@{}c@{}}
-        \includegraphics[width=0.3\textwidth]{figures/3_methods/imagem_marcada_inteira.png}
+        \includegraphics[width=0.45\textwidth]{figures/3_methods/imagem_marcada_inteira.png}
     \end{tabular}
     \begin{tabular}{@{}c@{}}
-        \includegraphics[width=0.3\textwidth]{figures/3_methods/imagem_marcada_ampliada.jpg}
+        \includegraphics[width=0.45\textwidth]{figures/3_methods/imagem_marcada_ampliada.jpg}
     \end{tabular}
   
-    \caption[Marcação do especialista para o método proposto.]{Imagem marcada por especialista. Em (a) imagem inteira. Em (b) imagem ampliada destacando os canais ósseos, contornados em verde.}
+    \caption[Marcação do especialista para o método proposto.]{Imagem marcada por especialista. À esquerda a imagem inteira. À direita a imagem ampliada destacando os canais ósseos, contornados em verde.}
     \label{fig:labelled-images}
 \end{figure}
 
@@ -51,7 +51,7 @@ A rede utilizada por este método foi a mesma desenvolvida por \cite{santos2022a
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=.9\linewidth]{figures/2_theoric_foundamentations/dali/unet.png}
+  \includegraphics[width=.9\linewidth]{figures/3_methods/unet.png}
   \caption[Arquitetura da rede utilizada]{Arquitetura da rede utilizada baseada na rede U-Net original com modificações destacadas em vermelho. Imagem adaptada de \cite{santos2022automated}.}
   \label{fig:dali-unet}
 \end{figure}
@@ -84,7 +84,7 @@ O fundo das imagens originais (sem marcações) foi removido utilizando do proce
 
 Ainda como foi feito por \cite{santos2022automated}, são geradas sub-imagens a partir das imagens originais, desconsiderando-se as regiões que não contém tecido. O tamanho de sub-imagens utilizado foi 640x640 pixels, visto que foi o tamanho que apresentou melhores resultados em \cite{santos2022automated}. As sub-imagens que continham apenas fundo foram descartadas.
 
-O treinamento ainda conta com a estratégia de aumento de dados utilizada por \cite{Santos2023a}, em que a cada época é aplicada uma transformação selecionada a partir de uma lista pré-definida. Para este aumento de dados, as seguintes operações foram consideradas: Inversão Horizontal, Inversão Vertical, Rotação, Tranposição, Transformação elástica, Distorção de grade e Distorção ótica. A Figura \ref{fig:aug-examples} mostra exemplos de cada uma dessas operações em comparação com um exemplar de sub-imagem original.
+O treinamento ainda conta com a estratégia de aumento de dados utilizada por \cite{Santos2023a}, em que a cada época é aplicada uma transformação selecionada aleatoriamente. Para este aumento de dados, as seguintes operações foram consideradas: Inversão Horizontal, Inversão Vertical, Rotação, Tranposição, Transformação elástica, Distorção de grade e Distorção ótica. A Figura \ref{fig:aug-examples} mostra exemplos de cada uma dessas operações em comparação com um exemplar de sub-imagem original.
 
 \begin{figure}[h]
     \center
@@ -149,15 +149,17 @@ O treinamento ainda conta com a estratégia de aumento de dados utilizada por \c
 
  Após o treinamento foi realizada a etapa de inferência, na qual são apresentadas à rede imagens do conjunto de testes, ou seja, que não foram utilizadas na etapa de treinamento, para que a segmentação dos canais seja feita e as métricas sejam calculadas.
 
- Nesta etapa é calculada para cada pixel uma probabilidade de que o mesmo pertença a um canal. Caso a probabilidade seja maior que uma probabilidade limiar \textit{p}, entende-se que aquele pixel faz parte da região de interesse.
+ Nesta etapa é calculada para cada pixel uma probabilidade de que o mesmo pertença a um canal. Caso a probabilidade seja maior que uma probabilidade limiar $p$, entende-se que aquele pixel faz parte da região de interesse.
 
- Para determinar qual o valor a ser usado como probabilidade limiar foram testados para este parâmetro  valores de 0\% a 95\% com um passo de 5\%. Para cada imagem do conjunto de testes foram calculados acurácia, precisão, \textit{f1-score}, sensibilidade e especificidade. A média das métricas citadas acima foi calculada para cada valor de \textit{p} testado a fim de identificar empiricamente qual o melhor valor de \textit{p} a ser utilizado para a segmentação final.
+ Para determinar qual o valor a ser usado como probabilidade limiar foram testados para este parâmetro  valores de 5\% a 95\% com um passo de 5\%. Para cada imagem do conjunto de testes foram calculados acurácia, precisão, \textit{f1-score}, sensibilidade e especificidade. A média das métricas citadas acima foi calculada para cada valor de $p$ testado a fim de identificar empiricamente qual o melhor valor de $p$ a ser utilizado para a segmentação final.
+
+ Para o cálculo dessas métricas foram considerados: TP: pixel pertencente ao canal vascular e detectado como pertencente ao canal vascular; TN: pixel não pertencente ao canal vascular e detectado como não pertencente ao canal vascular; FP: pixel não pertencente ao canal vascular e detectado como pertencente ao canal vascular; FN: pixel pertencente ao canal vascular e detectado como não pertencente ao canal vascular.
 
 
 Também foi feita uma análise das medidas precisão, \textit{f1-score}, sensibilidade e intersecção sobre união para cada canal segmentado utilizando o método proposto por \cite{gondim2021automatic}. Esse resultado serviu como comparação do método proposto com um método existente na literatura.
 
-% Se der tempo
-% O treinamento também foi realizado com diferentes quantidades de épocas a fim de se validar a possibilidade de super-especialização da rede. As quantidades de épocas testadas foram 50, 100, 500 e 1000.
+
+A Figura \ref{fig:methodology-schema} apresenta um esquema geral da metodologia utilizada.
 
 
 
@@ -165,10 +167,12 @@ Também foi feita uma análise das medidas precisão, \textit{f1-score}, sensibi
 
 \begin{figure}[h]
     \center
-    \includegraphics[width=1.0\textwidth]{figures/3_methods/metodologia.drawio.png}   
+    \includegraphics[width=1.25\textwidth]{figures/3_methods/metodologia.drawio.png}   
   
-    \caption[Diagrama do método proposto.]{Diagrama da metodologia utilizada. Na etapa de preparo do conjunto de dados as imagens foram marcadas manualmente, e foram geradas máscaras binárias destacando as estruturas de interesse. Para a etapa de treinamento a rede neural foi treinada utilizando as sub-imagens das imagens originais e suas respectivas máscaras; o treinamento contou ainda com uma estratégia de aumento de dados. Na etapa de testes foram computados mapas de probabilidades utilizando a rede treinada; foram testados vários valores de limiar de probabilidade em dois tipos de análise: pixel a pixel e canal a canal; a segmentação final foi feita utilizando o limiar de probabilidade que apresentou melhores resultados. }
-    \label{fig:aug-examples}
+    \caption[Diagrama do método proposto.]{Metodologia utilizada. Inicialmente as imagens foram marcadas manualmente. Máscaras binárias foram geradas destacando as estruturas de interesse. A rede neural foi então treinada utilizando sub-imagens das imagens originais e suas máscaras; o treinamento contou com uma estratégia de aumento de dados. Mapas de probabilidades foram computados utilizando a rede treinada; diferentes valores de limiar de probabilidade $p$ foram testados em dois tipos de análise: pixel a pixel e canal a canal; a segmentação final foi feita utilizando o valor de $p$ que apresentou melhores resultados. }
+    \label{fig:methodology-schema}
 \end{figure}
 
 \end{landscape}
+
+%    \caption[Diagrama do método proposto.]{Diagrama da metodologia utilizada. Na etapa de preparo do conjunto de dados as imagens foram marcadas manualmente, e foram geradas máscaras binárias destacando as estruturas de interesse. Para a etapa de treinamento a rede neural foi treinada utilizando as sub-imagens das imagens originais e suas respectivas máscaras; o treinamento contou ainda com uma estratégia de aumento de dados. Na etapa de testes foram computados mapas de probabilidades utilizando a rede treinada; foram testados vários valores de limiar de probabilidade em dois tipos de análise: pixel a pixel e canal a canal; a segmentação final foi feita utilizando o limiar de probabilidade que apresentou melhores resultados. }

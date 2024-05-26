@@ -2,7 +2,7 @@
 
 Neste trabalho foi explorado um novo método de segmentação de canais vasculares em imagens histológicas de tecido ósseo utilizando uma rede neural completamente convolucional. A rede foi treinada com um conjunto de imagens próprio criado a partir de imagens marcadas manualmente com a ajuda de um especialista em histologia. Além disso, o conjunto de imagens utilizado foi disponibilizado publicamente. 
 
-O método testado mostrou-se capaz de executar a tarefa de segmentação de canais vasculares em imagens histológicas WSI de tecido ósseo. Apresentou bons valores de acurácia e especificidade e valores superiores de precisão, sensibilidade e \textit{f1-score} e mostrou-se mais robusto e preciso em comparação com outros trabalhos encontrados na literatura. 
+O método testado mostrou-se capaz de executar a tarefa de segmentação de canais vasculares em imagens histológicas WSI de tecido ósseo. Apresentou bons valores de acurácia e especificidade e valores superiores de precisão, sensibilidade e \textit{f1-score} e mostrou-se mais robusto e preciso em comparação com outros trabalhos encontrados na literatura. Cabe também destacar a qualidade do trabalho apresentado por \cite{santos2022automated}. Com uma simples adaptação do método por eles proposto, foi possível segmentar um conjunto de imagens de domínio bem diferente e com resultados de boa qualidade. Isso é um estímulo para o uso da mesma técnica em outros domínios da área da saúde.
 
 Entretanto o trabalho apresenta algumas limitações. Não foram testados outros tamanhos para a quebra da imagem WSI em imagens menores. Uma quebra em tamanhos menores possivelmente melhoraria os resultados visto que  poderiam haver mais sub-imagens que não apresentam canais. Dessa forma poderíamos descartá-las e treinar a rede com um conjunto de dados mais equilibrado entre \textit{pixels} que são canais e \textit{pixels} que não são canais.
 
@@ -13,4 +13,6 @@ Conclui-se portanto que a segmentação de canais vasculares em imagens histoló
 \section{Contribuições em Produções Bibliográficas}
 
 O artigo \textit{Automatic Segmentation of Bone Canals on Histological Images Using Fully Convolutional Neural Networks}
-foi submetido para a revista Social \textit{Biomedical Signal Processing and Control}. Nesse artigo foram reunidas as principais propostas e resultados descritos nesta dissertação.
+foi submetido para a revista \textit{Biomedical Signal Processing and Control}. Nesse artigo foram reunidas as principais propostas e resultados descritos nesta dissertação.
+
+Além disso, este trabalho foi apresentado na 40ª edição do evento SBPqO (Sociedade Brasileira de Pesquisa Odontológica) em setembro de 2023, levando resultados parciais e submetido para edição 2024 do evento com os resultados finais.

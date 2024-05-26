@@ -405,7 +405,7 @@
 \newcommand{\listasiglas}[1]{
 	\thispagestyle{empty}
 	\pagestyle{empty}
-	\pdfbookmark[0]{Acronyms list}{Acronyms list}   % 18/11/2015 - atualizações para dissertações e teses com corpo em inglês
+	\pdfbookmark[0]{Lista de abreviaturas}{Lista de abreviaturas}   % 18/11/2015 - atualizações para dissertações e teses com corpo em inglês
 	\chapter*{Lista de abreviaturas}
 	\input{#1}
 	\cleardoublepage
