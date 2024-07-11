@@ -9,7 +9,7 @@ As imagens utilizadas foram obtidas a partir do fêmur esquerdo de um rato \text
 
 Todos os procedimentos para se obter este material foram executados de acordo com as normas do Colégio Brasileiro de Experimentação Animal (COBEA), com aprovação do Comitê de Ética no Uso de Animais da Universidade Federal de Uberlândia (CEUA-UFU) -- Protocolo 060/09.
 
-Neste estudo foram analisados 65 cortes histológicos de fêmur esquerdo. Foi utilizado um ScanScope AT Turbo\textregistered Scanner (Leica Biosystems, Nussloch, Alemanha) para digitalizar as imagens com uma ampliação efetiva de 20×. As imagens foram exportadas em arquivos TIFF de alta resolução. A Figura \ref{fig:original-images} mostra um exemplo de corte histológico para o fêmur irradiado. O tamanho da imagem na Figura \ref{fig:original-images}(a) é de 7.940 × 9.051 pixels, a largura e altura do pixel são 0,502 \(\mu\)m. Nessa resolução é possível identificar os canais vasculares (Figura \ref{fig:original-images}(b)).
+Neste estudo foram analisados 65 cortes histológicos de fêmur esquerdo. Foi utilizado um ScanScope AT Turbo\textregistered Scanner (Leica Biosystems, Nussloch, Alemanha) para digitalizar as imagens com uma ampliação efetiva de 20×. As imagens foram exportadas em arquivos TIFF de alta resolução. A Figura \ref{fig:original-images} mostra um exemplo de corte histológico para o fêmur irradiado. O tamanho da imagem na Figura \ref{fig:original-images}(a) é de 7.940 × 9.051 pixels, a largura e altura do pixel são 0,502 \(\mu\)m. Nessa resolução é possível identificar os canais ósseos (Figura \ref{fig:original-images}(b)).
 
 \begin{figure}[h]
     \center
@@ -24,14 +24,14 @@ Neste estudo foram analisados 65 cortes histológicos de fêmur esquerdo. Foi ut
     \small (b) Imagem original ampliada
     \end{tabular}
     
-    \caption[Exemplo de imagem utilizada no método proposto.]{Exemplo de imagem utilizada no método proposto. Em (a) imagem da secção inteira destacando artefatos externos que não são de interesse na análise, em (b) imagem ampliada destacando os canais vasculares.} 
+    \caption[Exemplo de imagem utilizada no método proposto.]{Exemplo de imagem utilizada no método proposto. Em (a) imagem da secção inteira destacando artefatos externos que não são de interesse na análise, em (b) imagem ampliada destacando os canais ósseos.} 
     \label{fig:original-images}
 \end{figure}
 
 Todas as imagens coletadas foram marcadas por um especialista em histologia. A marcação foi feita por meio do software Photoshop\textregistered, versão 2016, contornando manualmente os canais ósseos com a ferramenta `Laço'. Em seguida foram exportadas em formato JPEG. Nesta etapa também foi feita a remoção do fundo da imagem, removendo artefatos externos que não eram interessantes para a análise. Os cortes histológicos marcados manualmente foram posteriormente divididos em 2037 sub-imagens de dimensões 640x640 pixels conforme será descrito adiante no texto.
 A Figura \ref{fig:labelled-images}(a) apresenta um exemplo de imagem marcada, e a Figura \ref{fig:labelled-images}(b) uma região ampliada da mesma imagem evidenciando as marcações. 
 
-As imagens de lâmina inteira bem como as sub-imagens utilizadas neste trabalho estão disponíveis publicamente no endereço: \href{https://github.com/igorgonribs/histology-bone-canals-imageset}{https://github.com/igorgonribs/histology-bone-canals-imageset}.
+As imagens de lâmina inteira bem como as sub-imagens utilizadas neste trabalho estão disponíveis publicamente no endereço: \href{https://www.kaggle.com/datasets/igorgonribsilva/histological-bone-canals-wsi}{https://www.kaggle.com/datasets/igorgonribsilva/histological-bone-canals-wsi}.
 
 \begin{figure}[h]
     \center
@@ -153,10 +153,13 @@ O treinamento ainda conta com a estratégia de aumento de dados utilizada por \c
 
  Para determinar qual o valor a ser usado como probabilidade limiar foram testados para este parâmetro  valores de 5\% a 95\% com um passo de 5\%. Para cada imagem do conjunto de testes foram calculados acurácia, precisão, \textit{f1-score}, sensibilidade e especificidade. A média das métricas citadas acima foi calculada para cada valor de $p$ testado a fim de identificar empiricamente qual o melhor valor de $p$ a ser utilizado para a segmentação final.
 
- Para o cálculo dessas métricas foram considerados: TP: pixel pertencente ao canal vascular e detectado como pertencente ao canal vascular; TN: pixel não pertencente ao canal vascular e detectado como não pertencente ao canal vascular; FP: pixel não pertencente ao canal vascular e detectado como pertencente ao canal vascular; FN: pixel pertencente ao canal vascular e detectado como não pertencente ao canal vascular.
+ Para o cálculo dessas métricas foram considerados: TP: pixel pertencente ao canal ósseo e detectado como pertencente ao canal ósseo; TN: pixel não pertencente ao canal ósseo e detectado como não pertencente ao canal ósseo; FP: pixel não pertencente ao canal ósseo e detectado como pertencente ao canal ósseo; FN: pixel pertencente ao canal ósseo e detectado como não pertencente ao canal ósseo.
 
 
 Também foi feita uma análise das medidas precisão, \textit{f1-score}, sensibilidade e intersecção sobre união para cada canal segmentado utilizando o método proposto por \cite{gondim2021automatic}. Esse resultado serviu como comparação do método proposto com um método existente na literatura.
+
+% TODO: confirmar se a inicialização em TZ é realmente aleatória
+A fim de comparação, foram realizados dois experimentos seguindo a metodologia descrita acima: o primeiro foi o treinamento executado a partir de uma inicialização aleatória dos pesos da rede neural, a partir de agora o texto irá se referir a este treinamento como \acf{TZ}; o segundo foi um treinamento executado a partir do modelo treinado e disponibilizado publicamente por \cite{santos2022automated}, a partir de agora o texto irá se referir a este treinamento como \acf{TTA}. 
 
 
 A Figura \ref{fig:methodology-schema} apresenta um esquema geral da metodologia utilizada.

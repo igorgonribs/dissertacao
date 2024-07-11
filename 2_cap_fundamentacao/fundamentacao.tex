@@ -2,10 +2,10 @@
 
 Neste capítulo são abordados os conceitos fundamentais que embasam o desenvolvimento desta pesquisa e os principais trabalhos correlatos.
 
-\section{O tecido ósseo e a rede vascular}
+\section{O tecido ósseo e a rede de canais ósseos}
 O tecido ósseo é um dos objetos de estudo da histologia e chama a atenção de pesquisadores e profissionais da área médica especialmente devido às suas propriedades regenerativas. Macroscopicamente os ossos longos podem ser divididos em duas regiões: diáfise e epífise. As epífises são as extremidades do osso e são compostas por osso esponjoso, ou seja, com muitas cavidades intercomunicantes \cite{junqueira1985histologia}. Já a diáfise é a região intermediária do osso, sendo mais fina e apresentando osso compacto -- sem cavidades -- em sua maior parte~\cite{junqueira1985histologia}. A Figura~\ref{fig:estrutura-ossos-longos}(a) mostra tais regiões e suas respectivas composições.
 
-A maior parte da diáfise é composta túneis longitudinais formados por lamelas concêntricas, tais túneis são conhecidos como sistema de Havers e formam em seus centros canais que são percorridos por vasos sanguíneos, linfáticos e nervos. Também existem canais transversais que conectam canais de Havers adjacentes chamados canais de Volkmann, formando assim a rede de canais ósseos~\cite{junqueira1985histologia}. A Figura~\ref{fig:estrutura-ossos-longos}(b) ilustra as estruturas mencionadas destacando os canais de Havers e de Volkmann.
+A maior parte da diáfise é composta túneis longitudinais formados por lamelas concêntricas, tais túneis são conhecidos como sistema de Havers e formam em seus centros canais que são percorridos por vasos sanguíneos, linfáticos e nervos. Também existem canais transversais que conectam canais de Havers adjacentes chamados canais de Volkmann, formando assim a rede de canais ósseos~\cite{junqueira1985histologia}. A Figura~\ref{fig:estrutura-ossos-longos}(b) mostra as estruturas mencionadas destacando os canais de Havers e de Volkmann.
 
 \begin{figure}[H]
     \centering
@@ -57,6 +57,14 @@ Tais redes são compostas por estruturas chamadas neurônios, que simulam os neu
 A rede neural mais simples possível é o \textit{perceptron}, que pode ser utilizada para tarefas de classificação binária ou regressão linear. O \textit{perceptron} é composto por apenas uma camada de um único neurônio. Ele recebe uma entrada $X$ de tamanho $m$ que é multiplicada por um vetor de pesos $W$ também de tamanho $m$. Em seguida é aplicada sobre o produto escalar $X \cdot W$ uma função de ativação a fim de produzir um único resultado de saída \cite{block1962perceptron}. O processo de treinamento de uma rede neural consiste justamente em realizar, com base no conjunto de dados de entrada, a parametrização do vetor de pesos $W$ das ligações entre os componentes da entrada $X$ e o neurônio \cite{mueller2019deep}.
 
 A partir do \textit{perceptron}, novas arquiteturas de redes neurais podem ser formuladas adicionando mais camadas, mais neurônios, funções de retro-propagação de erro dentre outras estratégias que permitem que as redes neurais resolvam problemas mais complexos.
+
+
+\section{Transferência de aprendizado}
+A transferência de aprendizado é uma técnica utilizada em aprendizado de máquina na qual um modelo inicialmente treinado para executar uma determinada tarefa -- tarefa de origem -- é então retreinado ou ajustado para executar uma nova tarefa -- tarefa alvo -- que seja de certa forma relacionada
+com a tarefa de origem \cite{torrey2010transfer}. 
+
+Dessa forma é possível reutilizar um modelo previamente desenvolvido, acelerando o desenvolvimento. Outros benefícios da transferência de aprendizado são a melhora da performance -- devido ao conhecimento previamente adquirido -- e a eficiência dos dados, pois torna possível realizar o treinamento para a tarefa alvo com um conjunto de dados de tamanho reduzido. Sendo assim, a transferência de aprendizado é comumente utilizada quando se deseja realizar tarefas com domínio semelhante, ou também quando se possui poucos dados para se realizar o treinamento \cite{torrey2010transfer}. 
+
 
 \section{Redes Neurais Convolucionais}
 
@@ -193,7 +201,7 @@ A literatura apresenta poucos trabalhos focados em segmentação de canais ósse
 
 %% Pedro
 Um método para segmentação automática de canais ósseos em imagens histológicas de tecido ósseo foi proposto por \cite{gondim2021automatic}. 
-Tal método processa as imagens de entrada, resumidamente, em quatro etapas: remoção de artefatos externos à matriz óssea, remoção de artefatos internos à matriz óssea, segmentação da rede vascular e remoção de falsos positivos. A cada etapa são utilizadas diversas técnicas de processamento de imagens (tais como abertura e fechamento morfológico, binarização, deconvolução de cor, etc.) em sequência e até mesmo um algoritmo de aprendizado de máquina não supervisionado denominado \textit{K-means}. Isso torna o método bastante complexo e implica em uma grande quantidade de parâmetros cujos valores devem ser fixos e obtidos empiricamente, o que leva a questionar sobre sua rebustez em relação a variações na imagem. A Figura \ref{fig:gondim-input-output} mostra um exemplo de entrada e saída do método proposto por \cite{gondim2021automatic}.
+Tal método processa as imagens de entrada, resumidamente, em quatro etapas: remoção de artefatos externos à matriz óssea, remoção de artefatos internos à matriz óssea, segmentação da rede de canais ósseos e remoção de falsos positivos. A cada etapa são utilizadas diversas técnicas de processamento de imagens (tais como abertura e fechamento morfológico, binarização, deconvolução de cor, etc.) em sequência e até mesmo um algoritmo de aprendizado de máquina não supervisionado denominado \textit{K-means}. Isso torna o método bastante complexo e implica em uma grande quantidade de parâmetros cujos valores devem ser fixos e obtidos empiricamente, o que leva a questionar sobre sua rebustez em relação a variações na imagem. A Figura \ref{fig:gondim-input-output} mostra um exemplo de entrada e saída do método proposto por \cite{gondim2021automatic}.
 
 \begin{figure}[h]
     \center

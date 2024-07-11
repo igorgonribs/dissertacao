@@ -5,32 +5,26 @@ Este capítulo apresenta os resultados obtidos nos experimentos descritos no cap
 
 \section{Treinamento da Rede}
 
-Para a fase de treinamento, obteve-se uma acurácia acima de 98\% para o conjunto de treinamento e em torno de 97\% para o conjunto de validação. Já para o erro obteve-se 2\% para o conjunto de treinamento e 12\% para o conjunto de validação. A Figura \ref{fig:640-acc-loss} mostra as curvas de perda e acurácia para ambos os conjuntos de dados ao longo do treinamento.
+Para a fase de treinamento, embora os resultados obtidos o \acs{TTA} tenham sido ligeiramente inferiores que os obtidos em \acs{TZ}, os rseultados foram semelhantes, e não houve mudança significativa na curva de aprendizado da rede. Para ambos os treinamentos foram obtidos sobre o conjunto de validação acurácia acima de 97\% e erro em torno de 12\%. A Figura~\ref{fig:640-acc-loss} mostra as curvas de perda e acurácia para ambos os conjuntos de dados ao longo de ambos os treinamentos.
 
-\begin{figure}[H]
+\begin{figure}[h]
     \center
     \begin{tabular}{@{}c@{}}
-        \includegraphics[width=0.45\textwidth]{figures/4_results/provisorio_640_acc.png}
+        \includegraphics[width=0.9\textwidth]{figures/4_results/both_training_pt.png}
         \\[\abovecaptionskip]
-    \small (a) Acurácia
-    \end{tabular}
-    \begin{tabular}{@{}c@{}}
-        \includegraphics[width=0.45\textwidth]{figures/4_results/provisorio_640_loss.png}
-        \\[\abovecaptionskip]
-    \small (b) Perda
     \end{tabular}
   
-    \caption[Curvas de acurácia e perda ao logo do treinamento.]{Curvas de acurácia e perda ao logo das 100 épocas do treinamento. Em (a) a acurácia das previsões da rede aplicadas ao conjunto de treinamento (em azul) e ao conjunto de validação (em laranja). Em (b) a perda das previsões da rede aplicadas ao conjunto de treinamento (em azul) e ao conjunto de validação (em laranja).}
+    \caption[Curvas de acurácia e perda ao logo do treinamento.]{Curvas de acurácia e perda ao logo de ambos os treinamentos. À esquerda a acurácia das previsões da rede aplicadas ao conjunto de treinamento (em azul para o \acs{TZ} e em laranja para o \acs{TTA}) e ao conjunto de validação (em verde para o \acs{TZ} e em vermelho para o \acs{TTA}). À direita a perda das previsões da rede aplicadas ao conjunto de treinamento (em azul para o \acs{TZ} e em laranja para o \acs{TTA}) e ao conjunto de validação (em verde para o \acs{TZ} e em vermelho para o \acs{TTA}).}
     \label{fig:640-acc-loss}
 \end{figure}
 
-A acurácia apresenta valores elevados principalmente devido ao desbalanceamento do conjunto de dados, pois as imagens possuem muito mais pixels negativos do que positivos, visto que os canais vasculares são estruturas pequenas que ocupam pouco espaço nas imagens quando comparamos à matriz óssea, por exemplo. 
+A acurácia apresenta valores elevados principalmente devido ao desbalanceamento do conjunto de dados, pois as imagens possuem muito mais pixels negativos do que positivos, visto que os canais ósseos são estruturas pequenas que ocupam pouco espaço nas imagens quando comparamos à matriz óssea, por exemplo. 
 
 \section{Análise por pixel}
 
 Em seguida foi executada a inferência sobre as imagens do conjunto de testes. Nesta etapa a saída da rede neural é uma imagem em escala de cinza onde cada pixel possui um valor entre 0 e 255 e quanto maior a probabilidade de um pixel pertencer à região de interesse maior será o seu valor. Portanto, visualmente, quanto mais próximo da cor branca for o \textit{pixel} na imagem de saída maior a probabilidade de o mesmo pertencer à região de interesse, conforme ilustrado pela Figura \ref{fig:masks-result-and-original-640-202-r2c1}.
 
-\begin{figure}[H]
+\begin{figure}[h]
     \center
     \begin{tabular}{@{}c@{}}
         \includegraphics[width=0.3\textwidth]{figures/4_results/network_640_mask.png}
@@ -60,75 +54,81 @@ Para validar o melhor valor para tal limiar foram testados vários valores de $p
 % \usepackage[table,xcdraw]{xcolor}
 % If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
 \begin{table}
-\center
-\begin{tiny}
-\begin{tabular}{|l|l|l|l|l|l|}
-\hline
-\rowcolor[HTML]{C0C0C0} 
-\textbf{Limiar p}                    & \textbf{Acurácia}     & \textbf{Precisão}   & \textbf{F1-Score}         & \textbf{Sensibilidade}   & \textbf{Especificidade}     \\ \hline
-%\cellcolor[HTML]{EFEFEF}\textbf{0.00}   & 0.801                 & 0.154               & 0.257                     & 0.968                    & 0.796                       \\ \cline{1-6}
-\cellcolor[HTML]{EFEFEF}\textbf{0.05}   & 0.944                 & 0.416               & 0.548                     & 0.907                    & 0.953                       \\ \cline{1-6}
-\cellcolor[HTML]{EFEFEF}\textbf{0.10}   & 0.958                 & 0.505               & 0.615                     & 0.873                    & 0.969                       \\ \cline{1-6}
-\cellcolor[HTML]{EFEFEF}\textbf{0.15}   & 0.965                 & 0.563               & 0.651                     & 0.844                    & 0.977                       \\ \cline{1-6} 
-\cellcolor[HTML]{EFEFEF}\textbf{0.20}   & 0.968                 & 0.608               & 0.673                     & 0.817                    & 0.982                       \\ \cline{1-6}
-\cellcolor[HTML]{EFEFEF}\textbf{0.25}   & 0.970                 & 0.642               & 0.685                     & 0.794                    & 0.985                       \\ \cline{1-6}
-\cellcolor[HTML]{EFEFEF}\textbf{0.30}   & 0.971                 & 0.674               & 0.693                     & 0.769                    & 0.987                       \\ \cline{1-6}
-\rowcolor[HTML]{D0D0D0}\textbf{0.35}   & 0.972                 & 0.701               & \textbf{0.697}             & 0.743                    & 0.989                       \\ \cline{1-6} 
-\cellcolor[HTML]{EFEFEF}\textbf{0.40}   & 0.973                 & 0.726               & 0.696                     & 0.716                    & 0.991                       \\ \cline{1-6}
-\cellcolor[HTML]{EFEFEF}\textbf{0.45}   & 0.973                 & 0.747               & 0.693                     & 0.689                    & 0.992                       \\ \cline{1-6}
-\cellcolor[HTML]{EFEFEF}\textbf{0.50}   & 0.973                 & 0.768               & 0.684                     & 0.657                    & 0.993                       \\ \cline{1-6}
-\cellcolor[HTML]{EFEFEF}\textbf{0.55}   & 0.973                 & 0.789               & 0.671                     & 0.621                    & 0.995                       \\ \cline{1-6} 
-\cellcolor[HTML]{EFEFEF}\textbf{0.60}   & 0.973                 & 0.810               & 0.652                     & 0.580                    & 0.996                       \\ \cline{1-6}
-\cellcolor[HTML]{EFEFEF}\textbf{0.65}   & 0.972                 & 0.829               & 0.628                     & 0.537                    & 0.996                       \\ \cline{1-6}
-\cellcolor[HTML]{EFEFEF}\textbf{0.70}   & 0.971                 & 0.840               & 0.592                     & 0.484                    & 0.997                       \\ \cline{1-6}
-\cellcolor[HTML]{EFEFEF}\textbf{0.75}   & 0.970                 & 0.858               & 0.547                     & 0.426                    & 0.998                       \\ \cline{1-6} 
-\cellcolor[HTML]{EFEFEF}\textbf{0.80}   & 0.969                 & 0.873               & 0.487                     & 0.360                    & 0.998                       \\ \cline{1-6}
-\cellcolor[HTML]{EFEFEF}\textbf{0.85}   & 0.967                 & 0.882               & 0.415                     & 0.290                    & 0.999                       \\ \cline{1-6}
-\cellcolor[HTML]{EFEFEF}\textbf{0.90}   & 0.965                 & 0.884               & 0.303                     & 0.195                    & 0.999                       \\ \cline{1-6}
-\cellcolor[HTML]{EFEFEF}\textbf{0.95}   & 0.962                 & 0.780               & 0.135                     & 0.078                    & 0.999                       \\ \cline{1-6}
-\end{tabular}
-\end{tiny}
-\caption{Médias de acurácia, precisão, \textit{f1-score}, sensibilidade e especificidade para cada \textit{threshold} $p$ testado na análise por pixel.}
-    \label{tab:metricas-variando-p}
+
+    \begin{small}
+    \begin{tabular}{l|l|l|l|l|l|l|l|l|l|l}
+    %\hline
+    \rowcolor[HTML]{EFEFEF} \multicolumn{1}{c}{\cellcolor[HTML]{FFFFFF} } & \multicolumn{5}{c|}{\textbf{Treinamento do Zero}} & \multicolumn{5}{|c}{\textbf{Treinamento transferido}} \\ 
+    \cline{1-11}
+    \cline{1-11}
+    \hline
+    \textbf{\textit{p}}                     & \textbf{Acur.}                                & \textbf{Prec.}                              & \textbf{F1}                                       & \textbf{Sensib.}                                 & \textbf{Espec.}                               &\textbf{Acur.}                                 & \textbf{Prec.}                              & \textbf{F1}                                      & \textbf{Sensib.}                                 & \textbf{Espec.}     \\ \hline
+    %\cellcolor[HTML]{EFEFEF}\textbf{0.00}  & \cellcolor[HTML]{FFEEEE}0.801                 & \cellcolor[HTML]{FFEEEE}0.154               & \cellcolor[HTML]{FFEEEE}0.257                     & \cellcolor[HTML]{FFEEEE}0.968                    & \cellcolor[HTML]{FFEEEE}0.796                 & \cellcolor[HTML]{EEFFEE}0.878                 & \cellcolor[HTML]{EEFFEE}0.217               & \cellcolor[HTML]{EEFFEE}0.340                    & \cellcolor[HTML]{EEFFEE}0.946                    & \cellcolor[HTML]{EEFFEE}0.881                       \\ \cline{1-11}
+    \cellcolor[HTML]{EFEFEF}\textbf{0.05}   & \cellcolor[HTML]{FFEEEE}0.944                 & \cellcolor[HTML]{FFEEEE}0.416               & \cellcolor[HTML]{FFEEEE}0.548                     & \cellcolor[HTML]{FFEEEE}0.907                    & \cellcolor[HTML]{FFEEEE}0.953                 & \cellcolor[HTML]{EEFFEE}0.953                 & \cellcolor[HTML]{EEFFEE}0.450               & \cellcolor[HTML]{EEFFEE}0.580                    & \cellcolor[HTML]{EEFFEE}0.904                    & \cellcolor[HTML]{EEFFEE}0.962                       \\ \cline{1-11}
+    \cellcolor[HTML]{EFEFEF}\textbf{0.10}   & \cellcolor[HTML]{FFEEEE}0.958                 & \cellcolor[HTML]{FFEEEE}0.505               & \cellcolor[HTML]{FFEEEE}0.615                     & \cellcolor[HTML]{FFEEEE}0.873                    & \cellcolor[HTML]{FFEEEE}0.969                 & \cellcolor[HTML]{EEFFEE}0.961                 & \cellcolor[HTML]{EEFFEE}0.520               & \cellcolor[HTML]{EEFFEE}0.632                    & \cellcolor[HTML]{EEFFEE}0.883                    & \cellcolor[HTML]{EEFFEE}0.972                       \\ \cline{1-11}
+    \cellcolor[HTML]{EFEFEF}\textbf{0.15}   & \cellcolor[HTML]{FFEEEE}0.965                 & \cellcolor[HTML]{FFEEEE}0.563               & \cellcolor[HTML]{FFEEEE}0.651                     & \cellcolor[HTML]{FFEEEE}0.844                    & \cellcolor[HTML]{FFEEEE}0.977                 & \cellcolor[HTML]{EEFFEE}0.965                 & \cellcolor[HTML]{EEFFEE}0.564               & \cellcolor[HTML]{EEFFEE}0.660                    & \cellcolor[HTML]{EEFFEE}0.865                    & \cellcolor[HTML]{EEFFEE}0.977                       \\ \cline{1-11} 
+    \cellcolor[HTML]{EFEFEF}\textbf{0.20}   & \cellcolor[HTML]{FFEEEE}0.968                 & \cellcolor[HTML]{FFEEEE}0.608               & \cellcolor[HTML]{FFEEEE}0.673                     & \cellcolor[HTML]{FFEEEE}0.817                    & \cellcolor[HTML]{FFEEEE}0.982                 & \cellcolor[HTML]{EEFFEE}0.968                 & \cellcolor[HTML]{EEFFEE}0.595               & \cellcolor[HTML]{EEFFEE}0.678                    & \cellcolor[HTML]{EEFFEE}0.850                    & \cellcolor[HTML]{EEFFEE}0.981                       \\ \cline{1-11}
+    \cellcolor[HTML]{EFEFEF}\textbf{0.25}   & \cellcolor[HTML]{FFEEEE}0.970                 & \cellcolor[HTML]{FFEEEE}0.642               & \cellcolor[HTML]{FFEEEE}0.685                     & \cellcolor[HTML]{FFEEEE}0.794                    & \cellcolor[HTML]{FFEEEE}0.985                 & \cellcolor[HTML]{EEFFEE}0.970                 & \cellcolor[HTML]{EEFFEE}0.620               & \cellcolor[HTML]{EEFFEE}0.689                    & \cellcolor[HTML]{EEFFEE}0.836                    & \cellcolor[HTML]{EEFFEE}0.983                       \\ \cline{1-11}
+    \cellcolor[HTML]{EFEFEF}\textbf{0.30}   & \cellcolor[HTML]{FFEEEE}0.971                 & \cellcolor[HTML]{FFEEEE}0.674               & \cellcolor[HTML]{FFEEEE}0.693                     & \cellcolor[HTML]{FFEEEE}0.769                    & \cellcolor[HTML]{FFEEEE}0.987                 & \cellcolor[HTML]{EEFFEE}0.971                 & \cellcolor[HTML]{EEFFEE}0.642               & \cellcolor[HTML]{EEFFEE}0.699                    & \cellcolor[HTML]{EEFFEE}0.822                    & \cellcolor[HTML]{EEFFEE}0.985                       \\ \cline{1-11}
+    \cellcolor[HTML]{D8D8D8}\textbf{0.35}   & \cellcolor[HTML]{FFEEEE}0.972                 & \cellcolor[HTML]{FFEEEE}0.701               & \cellcolor[HTML]{FFDDDD}{\textbf{0.697}}          & \cellcolor[HTML]{FFEEEE}0.743                    & \cellcolor[HTML]{FFEEEE}0.989                 & \cellcolor[HTML]{EEFFEE}0.972                 & \cellcolor[HTML]{EEFFEE}0.663               & \cellcolor[HTML]{EEFFEE}0.705                    & \cellcolor[HTML]{EEFFEE}0.807                    & \cellcolor[HTML]{EEFFEE}0.987                       \\ \cline{1-11} 
+    \cellcolor[HTML]{EFEFEF}\textbf{0.40}   & \cellcolor[HTML]{FFEEEE}0.973                 & \cellcolor[HTML]{FFEEEE}0.726               & \cellcolor[HTML]{FFEEEE}0.696                     & \cellcolor[HTML]{FFEEEE}0.716                    & \cellcolor[HTML]{FFEEEE}0.991                 & \cellcolor[HTML]{EEFFEE}0.973                 & \cellcolor[HTML]{EEFFEE}0.681               & \cellcolor[HTML]{EEFFEE}0.710                    & \cellcolor[HTML]{EEFFEE}0.792                    & \cellcolor[HTML]{EEFFEE}0.988                       \\ \cline{1-11}
+    \cellcolor[HTML]{EFEFEF}\textbf{0.45}   & \cellcolor[HTML]{FFEEEE}0.973                 & \cellcolor[HTML]{FFEEEE}0.747               & \cellcolor[HTML]{FFEEEE}0.693                     & \cellcolor[HTML]{FFEEEE}0.689                    & \cellcolor[HTML]{FFEEEE}0.992                 & \cellcolor[HTML]{EEFFEE}0.973                 & \cellcolor[HTML]{EEFFEE}0.698               & \cellcolor[HTML]{EEFFEE}0.714                    & \cellcolor[HTML]{EEFFEE}0.779                    & \cellcolor[HTML]{EEFFEE}0.989                       \\ \cline{1-11}
+    \cellcolor[HTML]{D8D8D8}\textbf{0.50}   & \cellcolor[HTML]{FFEEEE}0.973                 & \cellcolor[HTML]{FFEEEE}0.768               & \cellcolor[HTML]{FFEEEE}0.684                     & \cellcolor[HTML]{FFEEEE}0.657                    & \cellcolor[HTML]{FFEEEE}0.993                 & \cellcolor[HTML]{EEFFEE}0.974                 & \cellcolor[HTML]{EEFFEE}0.715               & \cellcolor[HTML]{DDFFDD}{\textbf{0.716}}         & \cellcolor[HTML]{EEFFEE}0.763                    & \cellcolor[HTML]{EEFFEE}0.990                       \\ \cline{1-11}
+    \cellcolor[HTML]{EFEFEF}\textbf{0.55}   & \cellcolor[HTML]{FFEEEE}0.973                 & \cellcolor[HTML]{FFEEEE}0.789               & \cellcolor[HTML]{FFEEEE}0.671                     & \cellcolor[HTML]{FFEEEE}0.621                    & \cellcolor[HTML]{FFEEEE}0.995                 & \cellcolor[HTML]{EEFFEE}0.974                 & \cellcolor[HTML]{EEFFEE}0.731               & \cellcolor[HTML]{EEFFEE}0.715                    & \cellcolor[HTML]{EEFFEE}0.746                    & \cellcolor[HTML]{EEFFEE}0.991                       \\ \cline{1-11} 
+    \cellcolor[HTML]{EFEFEF}\textbf{0.60}   & \cellcolor[HTML]{FFEEEE}0.973                 & \cellcolor[HTML]{FFEEEE}0.810               & \cellcolor[HTML]{FFEEEE}0.652                     & \cellcolor[HTML]{FFEEEE}0.580                    & \cellcolor[HTML]{FFEEEE}0.996                 & \cellcolor[HTML]{EEFFEE}0.975                 & \cellcolor[HTML]{EEFFEE}0.747               & \cellcolor[HTML]{EEFFEE}0.713                    & \cellcolor[HTML]{EEFFEE}0.725                    & \cellcolor[HTML]{EEFFEE}0.992                       \\ \cline{1-11}
+    \cellcolor[HTML]{EFEFEF}\textbf{0.65}   & \cellcolor[HTML]{FFEEEE}0.972                 & \cellcolor[HTML]{FFEEEE}0.829               & \cellcolor[HTML]{FFEEEE}0.628                     & \cellcolor[HTML]{FFEEEE}0.537                    & \cellcolor[HTML]{FFEEEE}0.996                 & \cellcolor[HTML]{EEFFEE}0.975                 & \cellcolor[HTML]{EEFFEE}0.763               & \cellcolor[HTML]{EEFFEE}0.709                    & \cellcolor[HTML]{EEFFEE}0.705                    & \cellcolor[HTML]{EEFFEE}0.993                       \\ \cline{1-11}
+    \cellcolor[HTML]{EFEFEF}\textbf{0.70}   & \cellcolor[HTML]{FFEEEE}0.971                 & \cellcolor[HTML]{FFEEEE}0.840               & \cellcolor[HTML]{FFEEEE}0.592                     & \cellcolor[HTML]{FFEEEE}0.484                    & \cellcolor[HTML]{FFEEEE}0.997                 & \cellcolor[HTML]{EEFFEE}0.975                 & \cellcolor[HTML]{EEFFEE}0.779               & \cellcolor[HTML]{EEFFEE}0.702                    & \cellcolor[HTML]{EEFFEE}0.679                    & \cellcolor[HTML]{EEFFEE}0.994                       \\ \cline{1-11}
+    \cellcolor[HTML]{EFEFEF}\textbf{0.75}   & \cellcolor[HTML]{FFEEEE}0.970                 & \cellcolor[HTML]{FFEEEE}0.858               & \cellcolor[HTML]{FFEEEE}0.547                     & \cellcolor[HTML]{FFEEEE}0.426                    & \cellcolor[HTML]{FFEEEE}0.998                 & \cellcolor[HTML]{EEFFEE}0.975                 & \cellcolor[HTML]{EEFFEE}0.796               & \cellcolor[HTML]{EEFFEE}0.692                    & \cellcolor[HTML]{EEFFEE}0.650                    & \cellcolor[HTML]{EEFFEE}0.995                       \\ \cline{1-11} 
+    \cellcolor[HTML]{EFEFEF}\textbf{0.80}   & \cellcolor[HTML]{FFEEEE}0.969                 & \cellcolor[HTML]{FFEEEE}0.873               & \cellcolor[HTML]{FFEEEE}0.487                     & \cellcolor[HTML]{FFEEEE}0.360                    & \cellcolor[HTML]{FFEEEE}0.998                 & \cellcolor[HTML]{EEFFEE}0.974                 & \cellcolor[HTML]{EEFFEE}0.814               & \cellcolor[HTML]{EEFFEE}0.677                    & \cellcolor[HTML]{EEFFEE}0.616                    & \cellcolor[HTML]{EEFFEE}0.996                       \\ \cline{1-11}
+    \cellcolor[HTML]{EFEFEF}\textbf{0.85}   & \cellcolor[HTML]{FFEEEE}0.967                 & \cellcolor[HTML]{FFEEEE}0.882               & \cellcolor[HTML]{FFEEEE}0.415                     & \cellcolor[HTML]{FFEEEE}0.290                    & \cellcolor[HTML]{FFEEEE}0.999                 & \cellcolor[HTML]{EEFFEE}0.974                 & \cellcolor[HTML]{EEFFEE}0.834               & \cellcolor[HTML]{EEFFEE}0.653                    & \cellcolor[HTML]{EEFFEE}0.571                    & \cellcolor[HTML]{EEFFEE}0.997                       \\ \cline{1-11}
+    \cellcolor[HTML]{EFEFEF}\textbf{0.90}   & \cellcolor[HTML]{FFEEEE}0.965                 & \cellcolor[HTML]{FFEEEE}0.884               & \cellcolor[HTML]{FFEEEE}0.303                     & \cellcolor[HTML]{FFEEEE}0.195                    & \cellcolor[HTML]{FFEEEE}0.999                 & \cellcolor[HTML]{EEFFEE}0.973                 & \cellcolor[HTML]{EEFFEE}0.851               & \cellcolor[HTML]{EEFFEE}0.613                    & \cellcolor[HTML]{EEFFEE}0.507                    & \cellcolor[HTML]{EEFFEE}0.998                       \\ \cline{1-11}
+    \cellcolor[HTML]{EFEFEF}\textbf{0.95}   & \cellcolor[HTML]{FFEEEE}0.962                 & \cellcolor[HTML]{FFEEEE}0.780               & \cellcolor[HTML]{FFEEEE}0.135                     & \cellcolor[HTML]{FFEEEE}0.078                    & \cellcolor[HTML]{FFEEEE}0.999                 & \cellcolor[HTML]{EEFFEE}0.970                 & \cellcolor[HTML]{EEFFEE}0.880               & \cellcolor[HTML]{EEFFEE}0.509                    & \cellcolor[HTML]{EEFFEE}0.378                    & \cellcolor[HTML]{EEFFEE}0.999                       \\ \cline{1-11}
+    \end{tabular}
+    \end{small}
+    \caption{Médias de acurácia, precisão, \textit{f1-score}, sensibilidade e especificidade para cada \textit{threshold} $p$ testado na análise por pixel.}
+        \label{tab:metricas-variando-p}
 \end{table}
 
 \begin{figure}
     \center
-\includegraphics[width=0.9\textwidth]{figures/4_results/compilado.png}
+    \includegraphics[width=0.9\textwidth]{figures/4_results/TTZ - Medidas x p (análise por pixel).png}
   
-    \caption[Métricas obtidas na análise por pixel.]{Acurácia, \textit{f1-score}, precisão, sensibilidade e especificidade em função do \textit{threshold} $p$ na análise por pixel.}
+    \includegraphics[width=0.9\textwidth]{figures/4_results/TTA - Medidas x p (análise por pixel).png}
+  
+    \caption[Métricas obtidas na análise por pixel de ambos os treinamentos.]{Acurácia, \textit{f1-score}, precisão, sensibilidade e especificidade em função do \textit{threshold} $p$ na análise por pixel de ambos os treinamentos.}
     \label{fig:graphic-results}
 \end{figure}
 
-Após o teste foi observado que para $p$=0,4 obteve-se o melhor valor de \textit{f1-score}, logo, a melhor relação entre precisão e sensibilidade. A especificidade e acurácia se mantiveram elevadas durante todo o teste devido ao alto volume de \textit{pixels} negativos corretamente classificados.
+Após o teste foi observado que o \acs{TTA} obteve resultados melhores que o \acs{TZ}, alcançando 71,6\% para $p$=0,5 de \textit{f1-score}, logo, a melhor relação entre precisão e sensibilidade. A especificidade e acurácia se mantiveram elevadas durante todo o teste devido ao alto volume de \textit{pixels} negativos corretamente classificados.
 
-Utilizando o resultado acima foi feita a segmentação das imagens do conjunto de testes utilizando $p$=0,4. A Figura \ref{fig:marcacoes-final} compara a máscara gerada pela rede com a máscara gerada a partir das marcações do especialista, e a Figura \ref{fig:marcacoes-final-regioes} mostra uma imagem da lâmina inteira marcada a partir da máscara gerada pela rede e algumas regiões ampliadas para detalhar os resultados, em que ainda é possível observar alguns falsos negativos.
+Utilizando o resultado acima foi feita a segmentação das imagens do conjunto de testes utilizando o modelo treinado a partir do zero com $p$=0,35. A Figura \ref{fig:marcacoes-final} compara a máscara gerada pela rede com a máscara gerada a partir das marcações do especialista, e a Figura \ref{fig:marcacoes-final-regioes} mostra uma imagem da lâmina inteira marcada a partir da máscara gerada pela rede e algumas regiões ampliadas para detalhar os resultados, em que ainda é possível observar alguns falsos negativos.
 
-\begin{figure}[H]
+\begin{figure}
     \center
     \begin{tabular}{@{}c@{}}
         \includegraphics[width=0.9\textwidth]{figures/4_results/figure-manuel-net-results-comparision_lower_res.png}
         \\[\abovecaptionskip]
     \end{tabular}
   
-    \caption[Comparação entre marcação manual feita por especialista e saída do método.]{Comparação entre marcação manual feita por especialista e saída do método. Na primeira coluna exemplos de marcações manuais, na segunda coluna as máscaras geradas pelo método utilizando um limiar $p$=0,4. Imagem em resolução original disponível \href{https://github.com/igorgonribs/dissertacao/blob/master/figures/4_results/figure-manuel-net-results-comparision.png}{neste link}}
+    \caption[Comparação entre marcação manual feita por especialista e saída do método.]{Comparação entre marcação manual feita por especialista e saída do método. Na primeira coluna exemplos de marcações manuais, na segunda coluna as máscaras geradas pelo método treinado a partir do zero e com um limiar $p$=0,35. Imagem em resolução original disponível \href{https://github.com/igorgonribs/dissertacao/blob/master/figures/4_results/figure-manuel-net-results-comparision.png}{neste link}}
     \label{fig:marcacoes-final}
 \end{figure}
 
 
-\begin{figure}[H]
+\begin{figure}
     \center
     \includegraphics[width=0.8\textwidth]{figures/4_results/302areas_reduzida.png}
    
-  
     \caption[Imagem marcada pela rede com regiões ampliadas]{Imagem de lâmina inteira com as marcações feitas pela rede em verde e com três regiões ampliadas. Observa-se, principalmente na região delimitada pela cor azul, a presença de alguns falsos negativos.}
     \label{fig:marcacoes-final-regioes}
 \end{figure}
+
+
 \section{Análise por canal}
 
 Nesta análise, para cada componente conectado da máscara de referência foi extraída uma sub-imagem de acordo com as coordenadas \(x_i, x_f, y_i, y_f\) do componente, em que $x_i$  e $y_i$ representam o menor valor de coordenada do pixel em x e y,  enquanto $x_f$ e $y_f$ representam o maior valor de coordenada do pixel em x e y. Extraía-se também uma sub-imagem da respectiva região delimitada por \(x_i, x_f, y_i, y_f\) na imagem segmentada pelo método para verificar se havia ou não um canal naquela região. Em seguida foi calculada a intersecção entre entre as duas sub-imagens. Foram considerados como verdadeiros positivos os componentes cuja intersecção coincidiram ao menos 70\% com o canal da máscara de referência. A Figura \ref{fig:intersection-net} mostra exemplos de canais na máscara de referência, na segmentação da rede e a intersecção entre os dois canais. 
 
-\begin{figure}[H]
+\begin{figure}
     \centering
     
     \begin{tabular}{@{}c@{}}
@@ -144,48 +144,53 @@ Nesta análise, para cada componente conectado da máscara de referência foi ex
 Em seguida foram extraídas da imagem segmentada sub-imagens representando os componentes conectados que não estavam presentes na imagem de referência, identificando, portanto, os falsos positivos. Nessa análise não é possível contabilizar verdadeiros negativos. 
 
 
-Para essa nova análise foram testados novamente os valores do limiar de probabilidade $p$. Por não termos o número de verdadeiros negativos as métricas utilizadas foram: Precisão, \textit{f1-score}, sensibilidade e Intersecção sobre União. O melhor resultado foi obtido para \(p = 0,10\). A Tabela \ref{tab:metricas-variando-p-por-canal} mostra o resultados da análise para cada valor de $p$.
+Para essa nova análise foram testados novamente os valores do limiar de probabilidade $p$. Por não termos o número de verdadeiros negativos as métricas utilizadas foram: Precisão, \textit{f1-score}, sensibilidade e Intersecção sobre União. O melhor resultado para ambos os treinamentos foi obtido para \(p = 0,10\). A Tabela \ref{tab:metricas-variando-p-por-canal} mostra o resultados da análise para cada valor de $p$ em ambos os treinamentos.
 
 \begin{table}[h]
-\center
-\begin{tiny}
-\begin{tabular}{|l|l|l|l|l|}
+    \center
+    \begin{small}
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|}
+        \multicolumn{1}{c}{\cellcolor[HTML]{FFFFFF} } & \multicolumn{4}{c|}{\cellcolor[HTML]{FFEEEE}\textbf{Treinamento do Zero}} & \multicolumn{4}{|c}{\cellcolor[HTML]{EEFFEE}\textbf{Treinamento transferido}} \\ 
+        \cline{1-9}
+        \cline{1-9}
 \hline
-\rowcolor[HTML]{C0C0C0} 
-\textbf{threshold} $p$                    &  \textbf{Precisão}   & \textbf{F1-Score}         & \textbf{Sensibilidade}   & \textbf{IoU}     \\ \hline
-\cellcolor[HTML]{EFEFEF}\textbf{0.00}   &  0.772               & 0.837                     & 0.965                    & 0.718            \\ \cline{1-5}
-\cellcolor[HTML]{EFEFEF}\textbf{0.05}   &  0.805               & 0.831                     & 0.896                    & 0.718            \\ \cline{1-5}
-\rowcolor[HTML]{D0D0D0} \textbf{0.10}   &  0.836               & \textbf{0.838}            & 0.866                    & \textbf{0.737}            \\ \cline{1-5}
-\cellcolor[HTML]{EFEFEF}\textbf{0.15}   &  0.844               & 0.826                     & 0.835                    & 0.720            \\ \cline{1-5} 
-\cellcolor[HTML]{EFEFEF}\textbf{0.20}   &  0.846               & 0.812                     & 0.806                    & 0.702            \\ \cline{1-5}
-\cellcolor[HTML]{EFEFEF}\textbf{0.25}   &  0.844               & 0.796                     & 0.778                    & 0.679            \\ \cline{1-5}
-\cellcolor[HTML]{EFEFEF}\textbf{0.30}   &  0.846               & 0.780                     & 0.748                    & 0.660            \\ \cline{1-5}
-\cellcolor[HTML]{EFEFEF}\textbf{0.35}   &  0.837               & 0.756                     & 0.713                    & 0.631            \\ \cline{1-5} 
-\cellcolor[HTML]{EFEFEF}\textbf{0.40}   &  0.827               & 0.730                     & 0.678                    & 0.595            \\ \cline{1-5}
-\cellcolor[HTML]{EFEFEF}\textbf{0.45}   &  0.813               & 0.698                     & 0.637                    & 0.555            \\ \cline{1-5}
-\cellcolor[HTML]{EFEFEF}\textbf{0.50}   &  0.792               & 0.659                     & 0.591                    & 0.508            \\ \cline{1-5}
-\cellcolor[HTML]{EFEFEF}\textbf{0.55}   &  0.770               & 0.614                     & 0.538                    & 0.452            \\ \cline{1-5} 
-\cellcolor[HTML]{EFEFEF}\textbf{0.60}   &  0.748               & 0.563                     & 0.477                    & 0.396            \\ \cline{1-5}
-\cellcolor[HTML]{EFEFEF}\textbf{0.65}   &  0.712               & 0.503                     & 0.415                    & 0.340            \\ \cline{1-5}
-\cellcolor[HTML]{EFEFEF}\textbf{0.70}   &  0.660               & 0.434                     & 0.347                    & 0.277            \\ \cline{1-5}
-\cellcolor[HTML]{EFEFEF}\textbf{0.75}   &  0.609               & 0.368                     & 0.284                    & 0.218            \\ \cline{1-5} 
-\cellcolor[HTML]{EFEFEF}\textbf{0.80}   &  0.535               & 0.291                     & 0.217                    & 0.163            \\ \cline{1-5}
-\cellcolor[HTML]{EFEFEF}\textbf{0.85}   &  0.420               & 0.200                     & 0.142                    & 0.104            \\ \cline{1-5}
-\cellcolor[HTML]{EFEFEF}\textbf{0.90}   &  0.246               & 0.099                     & 0.067                    & 0.046            \\ \cline{1-5}
-\cellcolor[HTML]{EFEFEF}\textbf{0.95}   &  0.055               & 0.017                     & 0.011                    & 0.008            \\ \cline{1-5}
+
+\cellcolor[HTML]{D8D8D8}\textbf{\textit{p}}    &  \cellcolor[HTML]{FFDDDD}\textbf{Precisão}   & \cellcolor[HTML]{FFDDDD}\textbf{F1-Score}  & \cellcolor[HTML]{FFDDDD}\textbf{Sensibilidade}    & \cellcolor[HTML]{FFDDDD}\textbf{IoU}       &  \cellcolor[HTML]{DDFFDD}\textbf{Precisão}   & \cellcolor[HTML]{DDFFDD}\textbf{F1-Score}  & \cellcolor[HTML]{DDFFDD}\textbf{Sensibilidade}   & \cellcolor[HTML]{DDFFDD}\textbf{IoU}       \\ \hline
+%\cellcolor[HTML]{EFEFEF}\textbf{0.00}   &  \cellcolor[HTML]{FFEEEE}0.772               & \cellcolor[HTML]{FFEEEE}0.837              & \cellcolor[HTML]{FFEEEE}0.965                     & \cellcolor[HTML]{FFEEEE}0.718              &  \cellcolor[HTML]{EEFFEE}0.728               & \cellcolor[HTML]{EEFFEE}0.805              & \cellcolor[HTML]{EEFFEE}0.958                    & \cellcolor[HTML]{EEFFEE}0.677              \\ \cline{1-9}
+\cellcolor[HTML]{EFEFEF}\textbf{0.05}   &  \cellcolor[HTML]{FFEEEE}0.805               & \cellcolor[HTML]{FFEEEE}0.831              & \cellcolor[HTML]{FFEEEE}0.896                     & \cellcolor[HTML]{FFEEEE}0.718              &  \cellcolor[HTML]{EEFFEE}0.833               & \cellcolor[HTML]{EEFFEE}0.860              & \cellcolor[HTML]{EEFFEE}0.917                    & \cellcolor[HTML]{EEFFEE}0.774              \\ \cline{1-9}
+\cellcolor[HTML]{D8D8D8}\textbf{0.10}   &  \cellcolor[HTML]{FFEEEE}0.836               & \cellcolor[HTML]{FFDDDD}{\textbf{0.838}}   & \cellcolor[HTML]{FFEEEE}0.866                     & \cellcolor[HTML]{FFDDDD}{\textbf{0.737}}   &  \cellcolor[HTML]{EEFFEE}0.856               & \cellcolor[HTML]{DDFFDD}{\textbf{0.863}}   & \cellcolor[HTML]{EEFFEE}0.898                    & \cellcolor[HTML]{DDFFDD}{\textbf{0.782}}   \\ \cline{1-9}
+\cellcolor[HTML]{EFEFEF}\textbf{0.15}   &  \cellcolor[HTML]{FFEEEE}0.844               & \cellcolor[HTML]{FFEEEE}0.826              & \cellcolor[HTML]{FFEEEE}0.835                     & \cellcolor[HTML]{FFEEEE}0.720              &  \cellcolor[HTML]{EEFFEE}0.867               & \cellcolor[HTML]{EEFFEE}0.863              & \cellcolor[HTML]{EEFFEE}0.883                    & \cellcolor[HTML]{EEFFEE}0.781              \\ \cline{1-9} 
+\cellcolor[HTML]{EFEFEF}\textbf{0.20}   &  \cellcolor[HTML]{FFEEEE}0.846               & \cellcolor[HTML]{FFEEEE}0.812              & \cellcolor[HTML]{FFEEEE}0.806                     & \cellcolor[HTML]{FFEEEE}0.702              &  \cellcolor[HTML]{EEFFEE}0.871               & \cellcolor[HTML]{EEFFEE}0.857              & \cellcolor[HTML]{EEFFEE}0.867                    & \cellcolor[HTML]{EEFFEE}0.775              \\ \cline{1-9}
+\cellcolor[HTML]{EFEFEF}\textbf{0.25}   &  \cellcolor[HTML]{FFEEEE}0.844               & \cellcolor[HTML]{FFEEEE}0.796              & \cellcolor[HTML]{FFEEEE}0.778                     & \cellcolor[HTML]{FFEEEE}0.679              &  \cellcolor[HTML]{EEFFEE}0.873               & \cellcolor[HTML]{EEFFEE}0.850              & \cellcolor[HTML]{EEFFEE}0.850                    & \cellcolor[HTML]{EEFFEE}0.765              \\ \cline{1-9}
+\cellcolor[HTML]{EFEFEF}\textbf{0.30}   &  \cellcolor[HTML]{FFEEEE}0.846               & \cellcolor[HTML]{FFEEEE}0.780              & \cellcolor[HTML]{FFEEEE}0.748                     & \cellcolor[HTML]{FFEEEE}0.660              &  \cellcolor[HTML]{EEFFEE}0.877               & \cellcolor[HTML]{EEFFEE}0.843              & \cellcolor[HTML]{EEFFEE}0.835                    & \cellcolor[HTML]{EEFFEE}0.756              \\ \cline{1-9}
+\cellcolor[HTML]{EFEFEF}\textbf{0.35}   &  \cellcolor[HTML]{FFEEEE}0.837               & \cellcolor[HTML]{FFEEEE}0.756              & \cellcolor[HTML]{FFEEEE}0.713                     & \cellcolor[HTML]{FFEEEE}0.631              &  \cellcolor[HTML]{EEFFEE}0.873               & \cellcolor[HTML]{EEFFEE}0.831              & \cellcolor[HTML]{EEFFEE}0.815                    & \cellcolor[HTML]{EEFFEE}0.738              \\ \cline{1-9} 
+\cellcolor[HTML]{EFEFEF}\textbf{0.40}   &  \cellcolor[HTML]{FFEEEE}0.827               & \cellcolor[HTML]{FFEEEE}0.730              & \cellcolor[HTML]{FFEEEE}0.678                     & \cellcolor[HTML]{FFEEEE}0.595              &  \cellcolor[HTML]{EEFFEE}0.871               & \cellcolor[HTML]{EEFFEE}0.819              & \cellcolor[HTML]{EEFFEE}0.797                    & \cellcolor[HTML]{EEFFEE}0.725              \\ \cline{1-9}
+\cellcolor[HTML]{EFEFEF}\textbf{0.45}   &  \cellcolor[HTML]{FFEEEE}0.813               & \cellcolor[HTML]{FFEEEE}0.698              & \cellcolor[HTML]{FFEEEE}0.637                     & \cellcolor[HTML]{FFEEEE}0.555              &  \cellcolor[HTML]{EEFFEE}0.871               & \cellcolor[HTML]{EEFFEE}0.811              & \cellcolor[HTML]{EEFFEE}0.783                    & \cellcolor[HTML]{EEFFEE}0.713              \\ \cline{1-9}
+\cellcolor[HTML]{EFEFEF}\textbf{0.50}   &  \cellcolor[HTML]{FFEEEE}0.792               & \cellcolor[HTML]{FFEEEE}0.659              & \cellcolor[HTML]{FFEEEE}0.591                     & \cellcolor[HTML]{FFEEEE}0.508              &  \cellcolor[HTML]{EEFFEE}0.864               & \cellcolor[HTML]{EEFFEE}0.799              & \cellcolor[HTML]{EEFFEE}0.766                    & \cellcolor[HTML]{EEFFEE}0.695              \\ \cline{1-9}
+\cellcolor[HTML]{EFEFEF}\textbf{0.55}   &  \cellcolor[HTML]{FFEEEE}0.770               & \cellcolor[HTML]{FFEEEE}0.614              & \cellcolor[HTML]{FFEEEE}0.538                     & \cellcolor[HTML]{FFEEEE}0.452              &  \cellcolor[HTML]{EEFFEE}0.854               & \cellcolor[HTML]{EEFFEE}0.783              & \cellcolor[HTML]{EEFFEE}0.745                    & \cellcolor[HTML]{EEFFEE}0.673              \\ \cline{1-9} 
+\cellcolor[HTML]{EFEFEF}\textbf{0.60}   &  \cellcolor[HTML]{FFEEEE}0.748               & \cellcolor[HTML]{FFEEEE}0.563              & \cellcolor[HTML]{FFEEEE}0.477                     & \cellcolor[HTML]{FFEEEE}0.396              &  \cellcolor[HTML]{EEFFEE}0.847               & \cellcolor[HTML]{EEFFEE}0.765              & \cellcolor[HTML]{EEFFEE}0.720                    & \cellcolor[HTML]{EEFFEE}0.648              \\ \cline{1-9}
+\cellcolor[HTML]{EFEFEF}\textbf{0.65}   &  \cellcolor[HTML]{FFEEEE}0.712               & \cellcolor[HTML]{FFEEEE}0.503              & \cellcolor[HTML]{FFEEEE}0.415                     & \cellcolor[HTML]{FFEEEE}0.340              &  \cellcolor[HTML]{EEFFEE}0.841               & \cellcolor[HTML]{EEFFEE}0.745              & \cellcolor[HTML]{EEFFEE}0.692                    & \cellcolor[HTML]{EEFFEE}0.625              \\ \cline{1-9}
+\cellcolor[HTML]{EFEFEF}\textbf{0.70}   &  \cellcolor[HTML]{FFEEEE}0.660               & \cellcolor[HTML]{FFEEEE}0.434              & \cellcolor[HTML]{FFEEEE}0.347                     & \cellcolor[HTML]{FFEEEE}0.277              &  \cellcolor[HTML]{EEFFEE}0.823               & \cellcolor[HTML]{EEFFEE}0.712              & \cellcolor[HTML]{EEFFEE}0.654                    & \cellcolor[HTML]{EEFFEE}0.582              \\ \cline{1-9}
+\cellcolor[HTML]{EFEFEF}\textbf{0.75}   &  \cellcolor[HTML]{FFEEEE}0.609               & \cellcolor[HTML]{FFEEEE}0.368              & \cellcolor[HTML]{FFEEEE}0.284                     & \cellcolor[HTML]{FFEEEE}0.218              &  \cellcolor[HTML]{EEFFEE}0.809               & \cellcolor[HTML]{EEFFEE}0.679              & \cellcolor[HTML]{EEFFEE}0.611                    & \cellcolor[HTML]{EEFFEE}0.540              \\ \cline{1-9} 
+\cellcolor[HTML]{EFEFEF}\textbf{0.80}   &  \cellcolor[HTML]{FFEEEE}0.535               & \cellcolor[HTML]{FFEEEE}0.291              & \cellcolor[HTML]{FFEEEE}0.217                     & \cellcolor[HTML]{FFEEEE}0.163              &  \cellcolor[HTML]{EEFFEE}0.786               & \cellcolor[HTML]{EEFFEE}0.632              & \cellcolor[HTML]{EEFFEE}0.552                    & \cellcolor[HTML]{EEFFEE}0.482              \\ \cline{1-9}
+\cellcolor[HTML]{EFEFEF}\textbf{0.85}   &  \cellcolor[HTML]{FFEEEE}0.420               & \cellcolor[HTML]{FFEEEE}0.200              & \cellcolor[HTML]{FFEEEE}0.142                     & \cellcolor[HTML]{FFEEEE}0.104              &  \cellcolor[HTML]{EEFFEE}0.743               & \cellcolor[HTML]{EEFFEE}0.570              & \cellcolor[HTML]{EEFFEE}0.487                    & \cellcolor[HTML]{EEFFEE}0.417              \\ \cline{1-9}
+\cellcolor[HTML]{EFEFEF}\textbf{0.90}   &  \cellcolor[HTML]{FFEEEE}0.246               & \cellcolor[HTML]{FFEEEE}0.099              & \cellcolor[HTML]{FFEEEE}0.067                     & \cellcolor[HTML]{FFEEEE}0.046              &  \cellcolor[HTML]{EEFFEE}0.651               & \cellcolor[HTML]{EEFFEE}0.455              & \cellcolor[HTML]{EEFFEE}0.372                    & \cellcolor[HTML]{EEFFEE}0.298              \\ \cline{1-9}
+\cellcolor[HTML]{EFEFEF}\textbf{0.95}   &  \cellcolor[HTML]{FFEEEE}0.055               & \cellcolor[HTML]{FFEEEE}0.017              & \cellcolor[HTML]{FFEEEE}0.011                     & \cellcolor[HTML]{FFEEEE}0.008              &  \cellcolor[HTML]{EEFFEE}0.362               & \cellcolor[HTML]{EEFFEE}0.209              & \cellcolor[HTML]{EEFFEE}0.158                    & \cellcolor[HTML]{EEFFEE}0.108              \\ \cline{1-9}
 \end{tabular}
-\end{tiny}
+\end{small}
 \caption{Médias de acurácia, precisão, \textit{f1-score}, sensibilidade e especificidade para cada \textit{threshold} $p$ testado na análise por canal.}
     \label{tab:metricas-variando-p-por-canal}
 \end{table}
 
-A análise descrita acima foi realizada sobre as imagens do conjunto de testes segmentadas com o limiar \(p = 0,10\). Foram obtidos bons resultados resultados. O \textit{f1-score} alcançou 84,8\%, um ganho significativo em relação ao melhor valor obtido na análise por pixel, e a Intersecção sobre União foi de cerca de 73,7\%. A Figura \ref{fig:graphic-metrics-x-p-per-canal} mostra um gráfico com as medidas calculadas para cada valor de $p$ testado.
+A análise descrita acima foi realizada sobre as imagens do conjunto de testes segmentadas com o limiar \(p = 0,10\). Novamente foi observado que o modelo \acs{TTA} apresentou resultados superiores ao modelo \acs{TZ}, obtendo 86,3\% e 78,2\% de \textit{f1-score} e Intersecção sobre União, respectivamente. Além disso na análise por canal houve um ganho significativo na \textit{f1-score} em relação ao melhor valor obtido na análise por pixel. A Figura \ref{fig:graphic-metrics-x-p-per-canal} mostra um gráfico com as medidas calculadas para cada valor de $p$ testado.
 
-\begin{figure}[H]
+\begin{figure}
     \center
-\includegraphics[width=0.8\textwidth]{figures/4_results/Medidas x Threshold p (análise por canal).png}
+    \includegraphics[width=0.9\textwidth]{figures/4_results/TTZ - Medidas x p (análise por canal).png}
+
+    \includegraphics[width=0.9\textwidth]{figures/4_results/TTA - Medidas x p (análise por canal).png}
   
-    \caption[Métricas obtidas na análise por canal.]{Precisão, \textit{f1-score}, Intersecção sobre União e sensibilidade em função do \textit{threshold} $p$ na análise por canal.}
+    \caption[Métricas obtidas na análise por canal para ambos os treinamentos.]{Precisão, \textit{f1-score}, Intersecção sobre União e sensibilidade em função do \textit{threshold} $p$ na análise por canal de ambos os treinamentos.}
     \label{fig:graphic-metrics-x-p-per-canal}
 \end{figure}
 
@@ -203,7 +208,7 @@ A Figura \ref{fig:marcacoes-final-canal} mostra a comparação entre máscaras g
 
 Na Figura~\ref{fig:marcacoes-final-canal} é possível encontrar algumas regiões escuras na matriz óssea indicando que não foram marcados canais nestas regiões. Este é possivelmente um ponto a melhorar no método, e uma das possíveis causas para essas lacunas é o tamanho das manchas. Talvez utilizando sub-imagens com tamanho 640x640 não tenha sido possível atingir granularidade suficiente para cobrir toda a matriz óssea.
 
-\begin{figure}[H]
+\begin{figure}[h]
     \center
     \begin{tabular}{@{}c@{}}
         \includegraphics[width=0.25\textwidth]{figures/4_results/204_mask_manual_lower_res.png}
@@ -235,7 +240,7 @@ Na Figura~\ref{fig:marcacoes-final-canal} é possível encontrar algumas regiõe
     \label{fig:marcacoes-final-canal}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[h]
     \center
     \begin{tabular}{@{}c@{}}
         \includegraphics[width=0.25\textwidth]{figures/4_results/204_r3c2_mask_manual_10.png}
@@ -272,7 +277,7 @@ Na Figura~\ref{fig:marcacoes-final-canal} é possível encontrar algumas regiõe
 A fim de comparação, foi feita uma implementação do algoritmo proposto por \cite{gondim2021automatic} utilizando a linguagem de programação Python na versão 3.10. As imagens de lâmina inteira do conjunto de testes foram então segmentadas e foi realizada a análise por canal conforme descrito anteriormente. A Figura \ref{fig:intersection-gondim} mostra exemplos de componentes conectados obtidos na análise por canal do algoritmo.
 
 
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
     
     \begin{tabular}{@{}c@{}}
@@ -285,9 +290,9 @@ A fim de comparação, foi feita uma implementação do algoritmo proposto por \
     \label{fig:intersection-gondim}
 \end{figure}
 
-Foi observado que no método proposto neste trabalho era menos comum a aparição de falsos negativos. Além disso, algumas imagens do conjunto de testes apresentavam concavidades no formato da matriz óssea e o método de \cite{gondim2021automatic} não reagiu bem para tais imagens, conforme mostrado na Figura \ref{fig:gondim-bad-prediction}.
+Foi observado que no método proposto neste trabalho era menos comum a aparição de falsos negativos. Além disso, algumas imagens do conjunto de testes apresentavam concavidades no formato do corte histológico e o método de \cite{gondim2021automatic} não reagiu bem para tais imagens, conforme mostrado na Figura \ref{fig:gondim-bad-prediction}.
 
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
     
     \begin{tabular}{c}
@@ -295,13 +300,13 @@ Foi observado que no método proposto neste trabalho era menos comum a apariçã
     \small (a) 
     \end{tabular}
 
-    \caption[Exemplo de falha do algoritmo proposto por \cite{gondim2021automatic}.]{Exemplo de falha do algoritmo proposto por \cite{gondim2021automatic}. Apesar de funcionar para imagens com matriz óssea em um formato convexo (sub-figuras (a) e (b)) o método falha ao trabalhar com imagens que apresentem concavidades na matriz óssea (sub-figuras (c) e (d)).}
+    \caption[Exemplo de falha do algoritmo proposto por \cite{gondim2021automatic}.]{Exemplo de falha do algoritmo proposto por \cite{gondim2021automatic}. Apesar de funcionar para cortes histológicos de formato convexo (sub-figuras (a) e (b)) o método falha ao trabalhar com cortes que apresentem concavidades (sub-figuras (c) e (d)).}
     \label{fig:gondim-bad-prediction}
 \end{figure}
 
 Os resultados obtidos em \cite{gondim2021automatic} mostram acurácia e especificidade próximas a 96\%, sensibilidade acima de 80\% e cerca de 90\% de \textit{f1-score}. Porém as marcações dos especialistas não seguiram a forma exata das estruturas, assim, foram considerados como verdadeiros positivos os canais cuja marcação do especialista estivesse ao menos 20\% contida na marcação feita pelo método. 
 
-Não fica claro se as imagens utilizadas em \cite{gondim2021automatic} continham imagens de diferentes regiões da diáfise femoral -- região intermediária do fêmur. Devido à anatomia do osso, imagens provenientes da região central da diáfise resultam em uma matriz óssea mais arredondada, semelhante à Figura \ref{fig:gondim-bad-prediction}(a), enquanto cortes mais próximos às extremidades da diáfise podem resultar em imagens cuja matriz óssea apresenta outros formatos, como o observado na Figura \ref{fig:gondim-bad-prediction}(c). 
+Não fica claro se as imagens utilizadas em \cite{gondim2021automatic} continham imagens de diferentes regiões da diáfise femoral -- região intermediária do fêmur. Devido à anatomia do osso, imagens provenientes da região central da diáfise resultam em cortes histológicos mais arredondados, semelhantes à Figura \ref{fig:gondim-bad-prediction}(a), enquanto imagens extraídas de regiões mais próximas às extremidades da diáfise podem resultar em cortes histológicos que apresentem outros formatos, como o observado na Figura \ref{fig:gondim-bad-prediction}(c). 
 
 A análise por canal -- descrita na seção 4.2 -- da reprodução do algoritmo proposto por \cite{gondim2021automatic} apresentou um \textit{f1-score} de aproximadamente 17,5\% e uma Intersecção sobre União de 9,6\%. A Tabela \ref{tab:metricas-comparacao-por-canal} mostra os resultados obtidos pela análise por canal para cada um dos métodos. Vale ressaltar que esse valor é bem inferior ao obtido pelos autores pois neste trabalho são consideradas como válidas as intersecções que coincidem 70\% ou mais com o canal da máscara de referência, enquanto que no trabalho original era consideradas interseções de apenas 20\%.
 
@@ -323,12 +328,14 @@ A análise por canal -- descrita na seção 4.2 -- da reprodução do algoritmo 
 \rowcolor[HTML]{C0C0C0} 
 \textbf{Método} & \textbf{Precisão} & \textbf{F1-Score} & \textbf{Sensibilidade}   & \textbf{IoU}     \\ 
 \hline
-\cellcolor[HTML]{EFEFEF}\textbf{FCN ($p$ = 0.10)} & 0.826 & 0.849 & 0.872 & 0.737 \\
+\cellcolor[HTML]{EFEFEF}\textbf{FCN - TZ ($p$ = 0.10)} & 0.826 & 0.849 & 0.872 & 0.737 \\
+\hline
+\cellcolor[HTML]{EFEFEF}\textbf{FCN - TTA ($p$ = 0.10)} & 0.856 & 0.863 & 0.898 & 0.782 \\
 \hline
 \cellcolor[HTML]{EFEFEF}\textbf{Algoritmo \cite{gondim2021automatic}} & 0.619 & 0.175 & 0.102 & 0.095 \\
 \hline
 \end{tabular}
 \end{tiny}
-\caption{Médias de precisão, \textit{f1-score}, sensibilidade e Intersecção sobre União para cada os métodos de segmentação testados.}
+\caption{Médias de precisão, \textit{f1-score}, sensibilidade e Intersecção sobre União para cada um dos métodos de segmentação testados.}
     \label{tab:metricas-comparacao-por-canal}
 \end{table}
